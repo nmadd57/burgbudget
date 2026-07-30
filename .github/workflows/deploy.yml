@@ -2,7 +2,7 @@ name: Build and deploy site
 
 on:
   push:
-    branches: [main]
+    branches: [main, fitchburg-spending-tracker-8edwi7]
   workflow_dispatch: {}
 
 permissions:

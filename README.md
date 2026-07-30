@@ -1,4 +1,4 @@
-# BurgBudget — The Fitchburg Ledger
+# Burg Budget
 
 An independent, automatically-updated look at the spending of the City of Fitchburg, Massachusetts, styled
 like an old newspaper. Not affiliated with, operated by, or endorsed by the City of Fitchburg.
@@ -16,7 +16,8 @@ job re-fetches and re-parses those documents, validates the results, and rebuild
 - **`scripts/validate.mjs`** — sanity-checks the generated data before it's allowed to ship.
 - **`src/`** — an [Eleventy](https://www.11ty.dev/) static site that reads `data/fitchburg/*.json` and renders it.
 - **`.github/workflows/`** — `update-data.yml` refreshes the data weekly and commits changes; `deploy.yml`
-  builds and publishes to GitHub Pages on every push to `main`; `security.yml` runs `npm audit` and CodeQL.
+  builds and publishes to GitHub Pages on every push to the default branch; `security.yml` runs `npm audit`
+  and CodeQL.
 
 See [`/methodology/`](src/methodology.njk) on the live site for data sources, extraction method, validation
 logic, and known limitations in plain language.
