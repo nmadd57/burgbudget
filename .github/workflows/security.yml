@@ -2,9 +2,9 @@ name: Security checks
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/fitchburg-spending-tracker-8edwi7]
   pull_request:
-    branches: [main]
+    branches: [main, claude/fitchburg-spending-tracker-8edwi7]
   schedule:
     # Wednesdays at 09:00 UTC.
     - cron: "0 9 * * 3"
