@@ -1,0 +1,50 @@
+---
+layout: layouts/base.njk
+title: The Archives
+---
+<h2 class="headline">The Archives</h2>
+<p class="byline">Every source document this site draws on, cataloged automatically</p>
+
+<p class="lede">
+  These are the primary documents the City of Fitchburg has published in its own Archive Center. This site
+  doesn't hold any financial data of its own — it only reads, parses, and republishes what the city has
+  already made public.
+</p>
+
+<h2 class="section-head">{{ documents.financialStatements.label }}</h2>
+<p>Audited annual financial statements, prepared by the Office of the City Auditor.</p>
+<ul class="doc-list">
+  {% for doc in documents.financialStatements.documents %}
+  <li><span class="year">{{ doc.year }}</span> <a href="{{ doc.url }}">{{ doc.title }}</a></li>
+  {% endfor %}
+</ul>
+
+<h2 class="section-head">{{ documents.retirementValuations.label }}</h2>
+<p>Actuarial valuations of the Fitchburg Retirement System's pension liability.</p>
+<ul class="doc-list">
+  {% for doc in documents.retirementValuations.documents %}
+  <li><span class="year">{{ doc.year }}</span> <a href="{{ doc.url }}">{{ doc.title }}</a></li>
+  {% endfor %}
+</ul>
+{% if documents.retirementValuations.documents.length %}
+<p class="source-note">Most recently posted valuation: {{ documents.retirementValuations.documents[0].year }}. If a newer valuation exists but isn't yet in the city's Archive Center, it won't appear here.</p>
+{% endif %}
+
+<h2 class="section-head">{{ documents.opebReports.label }}</h2>
+<p>Other Post-Employment Benefits (retiree health insurance) liability reports.</p>
+<ul class="doc-list">
+  {% for doc in documents.opebReports.documents %}
+  <li><span class="year">{{ doc.year }}</span> <a href="{{ doc.url }}">{{ doc.title }}</a></li>
+  {% endfor %}
+</ul>
+{% if documents.opebReports.documents.length %}
+<p class="source-note">Most recently posted report: {{ documents.opebReports.documents[0].year }}.</p>
+{% endif %}
+
+<h2 class="section-head">Mayor's Budgets</h2>
+<p>The primary source for every department-spending and revenue figure on this site.</p>
+<ul class="doc-list">
+  {% for b in budgets.budgets | reverse %}
+  <li><span class="year">FY{{ b.fiscalYear }}</span> <a href="{{ b.source.url }}">{{ b.source.title }}</a></li>
+  {% endfor %}
+</ul>

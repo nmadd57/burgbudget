@@ -1,0 +1,55 @@
+---
+layout: layouts/base.njk
+title: Department Spending
+usesChart: true
+---
+<h2 class="headline">Department by Department</h2>
+<p class="byline">Adopted General Fund appropriations, FY{{ budgets.ok[0].fiscalYear }}–FY{{ budgets.latest.fiscalYear }}</p>
+
+<p class="lede">
+  Every department's adopted appropriation, as printed in each year's own Mayor's Budget book. Figures are
+  never restated after the fact — a department's FY{{ budgets.ok[0].fiscalYear }} figure is what was adopted
+  in FY{{ budgets.ok[0].fiscalYear }}, not a later re-estimate.
+</p>
+
+<div class="chart-box">
+  <canvas id="dept-bar" data-chart="bar" height="110"></canvas>
+  <script type="application/json" id="dept-bar-data">{{ budgets.charts.departmentBar | dump | safe }}</script>
+</div>
+
+<div class="chart-box">
+  <canvas id="total-trend" data-chart="line" height="90"></canvas>
+  <script type="application/json" id="total-trend-data">{{ budgets.charts.totalTrend | dump | safe }}</script>
+</div>
+
+<h2 class="section-head">Full Detail, FY{{ budgets.latest.fiscalYear }}</h2>
+<table>
+  <caption>Source: {{ budgets.latest.source.title }} — <a href="{{ budgets.latest.source.url }}">view PDF</a></caption>
+  <thead>
+    <tr><th>Department</th><th>Adopted FY{{ budgets.latest.fiscalYear }}</th></tr>
+  </thead>
+  <tbody>
+    {% for d in budgets.departmentTotals %}
+    <tr><td>{{ d.name }}</td><td>{{ d.value | money }}</td></tr>
+    {% endfor %}
+    <tr class="total-row"><td>Total Expenditures</td><td>{{ budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex] | money }}</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section-head">By Fiscal Year</h2>
+<div class="columns">
+{% for b in budgets.budgets | reverse %}
+  <div class="clipping">
+    <strong>FY{{ b.fiscalYear }}</strong>
+    {% if b.expenditures.status == "ok" %}
+      — Adopted budget: {{ b.expenditures.total[b.expenditures.adoptedColumnIndex] | money }}
+      {% if b.expenditures.confidence == "low" %}<span class="confidence-low"> (unverified — see note)</span>{% endif %}
+      <p class="source-note"><a href="{{ b.source.url }}">{{ b.source.title }}</a></p>
+      {% if b.expenditures.note %}<p class="source-note confidence-low">{{ b.expenditures.note }}</p>{% endif %}
+    {% else %}
+      — <span class="confidence-low">could not be automatically extracted</span> ({{ b.expenditures.note }}).
+      <p class="source-note"><a href="{{ b.source.url }}">View the source PDF directly</a></p>
+    {% endif %}
+  </div>
+{% endfor %}
+</div>

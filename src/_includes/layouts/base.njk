@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}{% if title %} · {% endif %}{{ site.name }}</title>
+  <meta name="description" content="{{ description or site.disclaimer }}">
+  <link rel="stylesheet" href="/assets/css/newspaper.css">
+</head>
+<body>
+  {% include "partials/masthead.njk" %}
+  <div class="wrap">
+    <main>
+      {{ content | safe }}
+    </main>
+  </div>
+  {% include "partials/footer.njk" %}
+  {% if usesChart %}
+  <script src="/assets/js/vendor/chart.umd.js"></script>
+  <script src="/assets/js/charts.js"></script>
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+name: Refresh civic data
+
+on:
+  schedule:
+    # Mondays at 08:00 UTC. Budget documents change rarely, but this
+    # catches a new posting within a week of the city publishing it.
+    - cron: "0 8 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-civic-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Fetch latest data from public sources
+        run: npm run data:fetch
+
+      - name: Validate fetched data
+        run: npm run validate
+
+      - name: Commit updated data if changed
+        run: |
+          git config user.name "burgbudget-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- data; then
+            echo "No data changes."
+            exit 0
+          fi
+          git add data
+          git commit -m "chore(data): refresh civic data from public sources"
+          git push

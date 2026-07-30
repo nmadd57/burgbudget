@@ -1,0 +1,73 @@
+---
+layout: layouts/base.njk
+title: Front Page
+---
+<h2 class="headline">City Hall Adopts {{ budgets.latest.fiscalYear }} Budget of {{ budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex] | money }}</h2>
+<p class="byline">Compiled automatically from the Mayor's {{ budgets.latest.fiscalYear }} Budget, filed with the City Council</p>
+
+<p class="lede">
+  The City of Fitchburg adopted a Fiscal Year {{ budgets.latest.fiscalYear }} General Fund budget of
+  {{ budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex] | money }},
+  {% if budgets.prior %}
+  {{ budgets.prior.expenditures.total[budgets.prior.expenditures.adoptedColumnIndex] | pctChange(budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex]) }}
+  from the {{ budgets.prior.fiscalYear }} adopted budget of {{ budgets.prior.expenditures.total[budgets.prior.expenditures.adoptedColumnIndex] | money }}.
+  {% endif %}
+  The single largest line remains {{ budgets.departmentTotals[0].name }}, at {{ budgets.departmentTotals[0].value | money }} —
+  {{ ((budgets.departmentTotals[0].value / budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex]) * 100) | round(1) }}% of the whole budget.
+</p>
+
+<div class="stat-grid">
+  <div class="stat">
+    <span class="value">{{ budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex] | moneyShort }}</span>
+    <span class="label">FY{{ budgets.latest.fiscalYear }} Adopted Budget</span>
+  </div>
+  <div class="stat">
+    <span class="value">{{ budgets.departmentTotals.length }}</span>
+    <span class="label">Budget Lines Tracked</span>
+  </div>
+  <div class="stat">
+    <span class="value">{{ budgets.ok.length }}</span>
+    <span class="label">Fiscal Years On Record</span>
+  </div>
+  <div class="stat">
+    <span class="value">{{ documents.financialStatements.documents.length }}</span>
+    <span class="label">Audited Statements Archived</span>
+  </div>
+</div>
+
+{% if summary.fiscalYearsWithLowConfidence and summary.fiscalYearsWithLowConfidence.length %}
+<div class="notice">
+  <strong>Editor's note:</strong> figures for fiscal year(s) {{ summary.fiscalYearsWithLowConfidence | join(", ") }}
+  did not reconcile cleanly during automated extraction and are marked <span class="confidence-low">unverified</span>
+  throughout this site pending a manual check against the source PDF. See <a href="/methodology/">Methodology</a>.
+</div>
+{% endif %}
+
+<h2 class="section-head">Top Ten Budget Lines, FY{{ budgets.latest.fiscalYear }}</h2>
+<table>
+  <caption>Adopted General Fund appropriation by department · source: {{ budgets.latest.source.title }}</caption>
+  <thead>
+    <tr><th>Department</th><th>Adopted FY{{ budgets.latest.fiscalYear }}</th><th>Share of Budget</th></tr>
+  </thead>
+  <tbody>
+    {% for d in budgets.departmentTotals | take(10) %}
+    <tr>
+      <td>{{ d.name }}</td>
+      <td>{{ d.value | money }}</td>
+      <td>{{ ((d.value / budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex]) * 100) | round(1) }}%</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><a href="/departments/">Read the full department-by-department breakdown, back to FY{{ budgets.ok[0].fiscalYear }} →</a></p>
+
+<div class="pull-quote">
+  "The single largest addition to this year's budget was {{ budgets.departmentTotals[0].name }}."
+</div>
+
+<h2 class="section-head">Where the Money Comes From</h2>
+<p>
+  Of the {{ budgets.latestRevenue.revenue.lineItems[budgets.latestRevenue.revenue.lineItems.length - 1].values[budgets.latestRevenue.revenue.adoptedColumnIndex] | money }}
+  in operating revenue the city expects to collect in FY{{ budgets.latestRevenue.fiscalYear }}, most comes from local property taxation and state education aid.
+  <a href="/revenue/">See the full revenue breakdown →</a>
+</p>

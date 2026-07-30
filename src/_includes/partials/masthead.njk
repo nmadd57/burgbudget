@@ -1,0 +1,21 @@
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">Vol. 1 · {{ site.city }} · Established 2026</p>
+    <h1><a href="/" style="color: inherit; text-decoration: none;">{{ site.name }}</a></h1>
+    <p class="tagline">{{ site.tagline }}</p>
+    <div class="dateline">
+      <span>Rebuilt automatically from public records</span>
+      <span>{% if summary.generatedAt %}Last updated {{ summary.generatedAt | dateline }}{% endif %}</span>
+    </div>
+  </div>
+</header>
+<nav class="sections">
+  <div class="wrap" style="display:flex; flex-wrap:wrap; justify-content:center; width:100%;">
+    <a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Front Page</a>
+    <a href="/departments/" {% if "/departments/" in page.url %}aria-current="page"{% endif %}>Department Spending</a>
+    <a href="/revenue/" {% if "/revenue/" in page.url %}aria-current="page"{% endif %}>Where It Comes From</a>
+    <a href="/documents/" {% if "/documents/" in page.url %}aria-current="page"{% endif %}>The Archives</a>
+    <a href="/methodology/" {% if "/methodology/" in page.url %}aria-current="page"{% endif %}>Methodology</a>
+    <a href="/about/" {% if "/about/" in page.url %}aria-current="page"{% endif %}>About</a>
+  </div>
+</nav>

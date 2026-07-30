@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+title: About
+---
+<h2 class="headline">About This Project</h2>
+<p class="byline">An independent civic-data project for {{ site.city }}</p>
+
+<p class="lede">
+  {{ site.name }} exists to make it easier for residents to see how their city government spends money —
+  without waiting for anyone to ask, and without needing to open a 50-page PDF to find the answer.
+</p>
+
+<p>
+  It's inspired by a small wave of independent municipal-finance transparency sites built by residents in
+  Massachusetts towns, in the same spirit as the state's own
+  <a href="https://www.macomptroller.org/cthru/">CTHRU</a> checkbook for state government and the
+  <a href="https://www.mass.gov/municipal-databank-data-analytics">Division of Local Services' municipal
+  databank</a> for statewide local-government trends. Where Fitchburg doesn't yet have its own equivalent, this
+  project tries to fill the gap using only what the city already publishes.</p>
+
+<div class="notice">
+  {{ site.disclaimer }}
+</div>
+
+<h2 class="section-head">Corrections &amp; Issues</h2>
+<p>
+  Found a figure that looks wrong, or a document this should be reading but isn't? Every part of this project —
+  the data pipeline, the validation logic, and the site itself — is open source. Please open an issue or pull
+  request at <a href="{{ site.repo }}">{{ site.repo }}</a>.
+</p>
+
+<h2 class="section-head">Security &amp; Maintenance</h2>
+<p>
+  This project's dependencies are monitored continuously and reviewed on a recurring schedule; see the
+  repository for the current status of automated dependency updates and security reviews.
+</p>
