@@ -1,0 +1,44 @@
+---
+layout: layouts/base.njk
+title: Where It Comes From
+usesChart: true
+---
+<h2 class="headline">Where the Money Comes From</h2>
+<p class="byline">General Fund revenue, FY{{ budgets.latestRevenue.fiscalYear }}</p>
+
+<p class="lede">
+  Property taxation and state aid make up the overwhelming majority of Fitchburg's operating revenue.
+  Below is the FY{{ budgets.latestRevenue.fiscalYear }} recap as filed with the Mayor's budget, grouped by major category.
+</p>
+
+<div class="chart-box">
+  <canvas id="rev-pie" data-chart="doughnut" height="140"></canvas>
+  <script type="application/json" id="rev-pie-data">{{ budgets.charts.revenueBreakdown | dump | safe }}</script>
+</div>
+
+<div class="chart-box">
+  <canvas id="rev-trend" data-chart="line" height="90"></canvas>
+  <script type="application/json" id="rev-trend-data">{{ budgets.charts.revenueTrend | dump | safe }}</script>
+</div>
+
+<h2 class="section-head">Full Revenue Recap, FY{{ budgets.latestRevenue.fiscalYear }}</h2>
+<table>
+  <caption>Source: {{ budgets.latestRevenue.source.title }} — <a href="{{ budgets.latestRevenue.source.url }}">view PDF</a></caption>
+  <thead>
+    <tr><th>Category</th><th>FY{{ budgets.latestRevenue.fiscalYear }}</th></tr>
+  </thead>
+  <tbody>
+    {% for item in budgets.latestRevenue.revenue.lineItems %}
+    <tr {% if item.isSubtotal %}class="total-row"{% endif %}>
+      <td>{{ item.label }}</td>
+      <td>{{ item.values[budgets.latestRevenue.revenue.adoptedColumnIndex] | money }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="notice">
+  Line items not marked in bold are individual revenue sources; bold rows are subtotals for their section
+  (Taxation, State Aid, Local Receipts, and so on). See <a href="/methodology/">Methodology</a> for how this
+  is parsed directly from the budget PDF.
+</div>

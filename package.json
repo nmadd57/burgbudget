@@ -1,0 +1,21 @@
+{
+  "name": "burgbudget",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An independent, automated look at the books of the City of Fitchburg, Massachusetts.",
+  "type": "module",
+  "scripts": {
+    "data:fetch": "node scripts/build-data.mjs",
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "validate": "node scripts/validate.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "chart.js": "^4.4.4",
+    "pdfjs-dist": "^4.6.82"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

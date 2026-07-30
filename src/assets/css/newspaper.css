@@ -1,0 +1,357 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap");
+
+:root {
+  --paper: #f2ead9;
+  --paper-dark: #e6dcc4;
+  --ink: #1c1a17;
+  --ink-soft: #4a443b;
+  --rule: #1c1a17;
+  --accent: #7a1f1f;
+  --column-gap: 2.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1c1a17;
+    --paper-dark: #262320;
+    --ink: #ece4d3;
+    --ink-soft: #c9c0ac;
+    --rule: #ece4d3;
+    --accent: #d98c8c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper-dark);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "PT Serif", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  background-image: radial-gradient(
+    ellipse at top left,
+    rgba(0, 0, 0, 0.03),
+    transparent 60%
+  );
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  border-bottom: 5px double var(--rule);
+  padding: 1.75rem 0 0.75rem;
+  text-align: center;
+}
+
+.masthead .kicker {
+  font-family: "Special Elite", monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+}
+
+.masthead h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  font-size: clamp(2.6rem, 7vw, 4.75rem);
+  letter-spacing: 0.01em;
+  margin: 0;
+  line-height: 1;
+}
+
+.masthead .tagline {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 1rem;
+}
+
+.masthead .dateline {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Special Elite", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-top: 1px solid var(--rule);
+  border-bottom: 3px solid var(--rule);
+  padding: 0.4rem 0;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Nav ---------- */
+
+nav.sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: "Special Elite", monospace;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+nav.sections a {
+  padding: 0.65rem 1rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-left: 1px solid var(--paper-dark);
+}
+
+nav.sections a:first-child {
+  border-left: none;
+}
+
+nav.sections a:hover,
+nav.sections a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Layout / typography ---------- */
+
+main {
+  padding: 2rem 0 3rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.headline {
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  border-bottom: 3px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin: 0 0 1rem;
+}
+
+h2.section-head {
+  font-size: 1.5rem;
+  border-top: 2px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.35rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 2.5rem 0 1.25rem;
+}
+
+.byline {
+  font-family: "Special Elite", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin: -0.5rem 0 1.5rem;
+}
+
+.lede {
+  font-size: 1.2rem;
+}
+
+.lede::first-letter {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  font-size: 3.6rem;
+  float: left;
+  line-height: 0.8;
+  padding: 0.05em 0.08em 0 0;
+  color: var(--accent);
+}
+
+.columns {
+  column-width: 320px;
+  column-gap: var(--column-gap);
+  column-rule: 1px solid var(--paper-dark);
+}
+
+a {
+  color: var(--accent);
+}
+
+/* ---------- Stat blocks ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin: 1.75rem 0 2.5rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.25rem 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .value {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  font-size: 2.1rem;
+  display: block;
+}
+
+.stat .label {
+  font-family: "Special Elite", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+/* ---------- Tables ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+caption {
+  text-align: left;
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+th,
+td {
+  text-align: right;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--paper-dark);
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+thead th {
+  border-bottom: 2px solid var(--rule);
+  font-family: "Special Elite", monospace;
+  font-weight: normal;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tr.total-row td,
+tr.total-row th {
+  border-top: 2px solid var(--rule);
+  font-weight: 700;
+}
+
+/* ---------- Cards / notices ---------- */
+
+.clipping {
+  border: 1px solid var(--rule);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(0, 0, 0, 0.02);
+  break-inside: avoid;
+}
+
+.notice {
+  border-left: 4px solid var(--accent);
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  font-size: 0.92rem;
+  background: rgba(122, 31, 31, 0.06);
+}
+
+.confidence-low {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.source-note {
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+
+.doc-list {
+  list-style: none;
+  padding: 0;
+}
+
+.doc-list li {
+  border-bottom: 1px dotted var(--ink-soft);
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.doc-list .year {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  min-width: 3.5em;
+}
+
+/* ---------- Chart wrapper ---------- */
+
+.chart-box {
+  margin: 1.5rem 0 2.5rem;
+  border: 1px solid var(--rule);
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  .chart-box {
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ---------- Footer ---------- */
+
+footer.masthead-footer {
+  border-top: 5px double var(--rule);
+  padding: 1.5rem 0 3rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+footer.masthead-footer a {
+  color: var(--ink-soft);
+}
+
+.pull-quote {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 0;
+  margin: 2rem 0;
+  text-align: center;
+}

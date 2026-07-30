@@ -1,0 +1,75 @@
+---
+layout: layouts/base.njk
+title: Methodology
+---
+<h2 class="headline">How This Is Built</h2>
+<p class="byline">Data sources, extraction method, and known limitations</p>
+
+<p class="lede">
+  Nothing on this site is entered by hand. A scheduled program re-reads the City of Fitchburg's own published
+  documents, extracts the numbers, checks them against each other, and rebuilds every page. This is what it does
+  and where it can go wrong.
+</p>
+
+<h2 class="section-head">Data Sources</h2>
+<div class="columns">
+  <p><strong>Mayor's Budgets</strong> — the city's <a href="https://www.fitchburgma.gov/Archive.aspx?AMID=58">Archive Center, category "Mayor's Budgets"</a>,
+  currently FY2016 through the present. Each budget book contains a General Fund Expenditures-by-department table
+  and a General Fund Revenue recap covering that year plus several prior years.</p>
+
+  <p><strong>Audited Financial Statements</strong> — the Office of the City Auditor's
+  <a href="https://www.fitchburgma.gov/Archive.aspx?AMID=50">annual audited statements</a>, cataloged with links
+  back to 2010.</p>
+
+  <p><strong>Retirement &amp; OPEB reports</strong> — actuarial valuations of the pension system and retiree
+  health benefits liability, cataloged from the city's own archive categories.</p>
+</div>
+
+<h2 class="section-head">How the Numbers Are Extracted</h2>
+<p>
+  Fitchburg's budget books aren't spreadsheets — they're PDFs where each number is just text positioned on a page.
+  The pipeline opens each PDF, groups text by its position into rows and columns, and reconstructs the table the
+  same way a person reading it would: find the header row naming each fiscal year and column type (Actual,
+  Projected, Requested, Mayor), then read each department's row beneath it.
+</p>
+<p>
+  For every fiscal year, only that year's own adopted ("Mayor") column is treated as authoritative for that
+  year — a department's FY2022 figure always comes from the FY2022 budget book, never restated by a later one.
+</p>
+
+<h2 class="section-head">Validation</h2>
+<p>
+  After extracting each department's row, the pipeline adds them up and compares the sum to the "Total
+  Expenditures" row printed in the same document. If they match (within rounding), the year is marked
+  <strong>high confidence</strong>. If they don't, the year is marked <span class="confidence-low">unverified</span>
+  and shown with a note rather than silently published. As of today,
+  {% if summary.fiscalYearsWithLowConfidence.length %}
+    fiscal year(s) {{ summary.fiscalYearsWithLowConfidence | join(", ") }} fall into this category.
+  {% else %}
+    every fiscal year on record has reconciled cleanly.
+  {% endif %}
+</p>
+
+<h2 class="section-head">Known Limitations</h2>
+<ul>
+  <li><strong>No vendor-level checkbook.</strong> Fitchburg does not currently publish a searchable
+  vendor-payment checkbook the way some Massachusetts municipalities do. This site can only show the
+  department-level appropriations the city itself publishes.</li>
+  <li><strong>No payroll/salary data.</strong> The city does not publish a structured, itemized employee
+  earnings report. Rather than scrape third-party aggregator sites of uncertain provenance, this site omits
+  individual salary data until an official source is available. Tracked as a roadmap item.</li>
+  <li><strong>Department names shift over time.</strong> A department renamed or reorganized between budget years
+  (for example, "Building" becoming "Building Inspectional Services") will show a break in its trend line rather
+  than a continuous history, since the pipeline matches names exactly rather than guessing at renames.</li>
+  <li><strong>Statewide comparison data isn't wired up yet.</strong> The Commonwealth's Division of Local Services
+  publishes standardized peer-comparison data (debt trends, levy capacity, local receipts) for every
+  municipality, but as an interactive dashboard rather than a downloadable file. Automating that is on the
+  roadmap.</li>
+</ul>
+
+<h2 class="section-head">Update Schedule &amp; Source Code</h2>
+<p>
+  The data pipeline runs on a schedule and rebuilds this entire site automatically whenever the city publishes
+  something new. Every line of the pipeline, and every page you're reading, is open source:
+  <a href="{{ site.repo }}">{{ site.repo }}</a>.
+</p>
