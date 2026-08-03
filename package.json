@@ -13,7 +13,7 @@
   "dependencies": {
     "cheerio": "^1.0.0",
     "chart.js": "^4.4.4",
-    "pdfjs-dist": "^4.6.82"
+    "pdfjs-dist": "^6.2.108"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
