@@ -1,0 +1,47 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: budgets.revenueLineItems
+  size: 1
+  alias: item
+permalink: "/revenue/{{ item.categorySlug }}/{{ item.slug }}/"
+eleventyComputed:
+  title: "{{ item.label }}"
+usesChart: true
+---
+<h2 class="headline">{{ item.label }}</h2>
+<p class="byline">
+  {{ item.value | money }} in FY{{ budgets.latestRevenue.fiscalYear }}
+  &middot; part of <a href="/revenue/{{ item.categorySlug }}/">{{ item.categoryLabel }}</a>
+</p>
+
+{% if item.blurb %}
+<p class="lede">{{ item.blurb | md | safe }}</p>
+{% endif %}
+
+<div class="chart-box">
+  <canvas id="item-trend" data-chart="line" height="90"></canvas>
+  <script type="application/json" id="item-trend-data">
+    {{ { labels: item.history | pluck("fiscalYear"), series: [ { label: item.label, values: item.history | pluck("value") } ] } | dump | safe }}
+  </script>
+</div>
+
+<h2 class="section-head">By Fiscal Year</h2>
+<table>
+  <caption>Source: each year's own Mayor's Budget recap — see <a href="/methodology/">Methodology</a></caption>
+  <thead>
+    <tr><th>Fiscal Year</th><th>Amount</th></tr>
+  </thead>
+  <tbody>
+    {% for h in item.history | reverse %}
+    <tr><td>FY{{ h.fiscalYear }}</td><td>{{ h.value | money }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if item.rate %}
+<h2 class="section-head">Rate</h2>
+<p>{{ item.rate | md | safe }}</p>
+{% endif %}
+
+<p><a href="/revenue/{{ item.categorySlug }}/">&larr; Back to {{ item.categoryLabel }}</a></p>

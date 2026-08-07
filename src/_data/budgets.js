@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { revenueCategoryContent } from "../content/revenue-categories.js";
+import { revenueLineItemContent } from "../content/revenue-line-items.js";
 
 const file = path.join(process.cwd(), "data", "fitchburg", "budgets.json");
 
@@ -83,6 +84,7 @@ export default function () {
   // per-category history trends and the category sub-pages.
   const revenueCategoriesByYear = revenueOk.map((b) => ({
     fiscalYear: b.fiscalYear,
+    adoptedColumnIndex: b.revenue.adoptedColumnIndex,
     categories: groupRevenueByCategory(b.revenue.lineItems).map((c) => ({
       ...c,
       totalValue: c.total.values[b.revenue.adoptedColumnIndex],
@@ -98,24 +100,54 @@ export default function () {
         ?.values[latestRevenue.revenue.adoptedColumnIndex]
     : null;
 
+  const adoptedColumnIndex = latestRevenue ? latestRevenue.revenue.adoptedColumnIndex : -1;
+
   const revenueCategories = latestCategories.map((cat) => {
-    const history = revenueCategoriesByYear.map((y) => {
+    const catHistory = revenueCategoriesByYear.map((y) => {
       const match = y.categories.find((c) => c.slug === cat.slug);
       return { fiscalYear: y.fiscalYear, value: match ? match.totalValue : null };
     });
     const content = revenueCategoryContent[cat.slug] || {};
-    const adoptedColumnIndex = latestRevenue.revenue.adoptedColumnIndex;
     const total = cat.total.values[adoptedColumnIndex];
+
+    // De-dupe line-item slugs within a category (rare, but "Less: Offset"
+    // style labels could theoretically repeat).
+    const seenSlugs = new Map();
+    const lineItems = cat.lineItems.map((li) => {
+      let slug = slugify(li.label);
+      const seen = seenSlugs.get(slug) || 0;
+      seenSlugs.set(slug, seen + 1);
+      if (seen > 0) slug = `${slug}-${seen + 1}`;
+
+      const history = revenueCategoriesByYear.map((y) => {
+        const yCat = y.categories.find((c) => c.slug === cat.slug);
+        const match = yCat?.lineItems.find((x) => x.label.toLowerCase() === li.label.toLowerCase());
+        return { fiscalYear: y.fiscalYear, value: match ? match.values[y.adoptedColumnIndex] : null };
+      });
+
+      return {
+        slug,
+        categorySlug: cat.slug,
+        categoryLabel: content.label || cat.label,
+        label: li.label,
+        value: li.values[adoptedColumnIndex],
+        history,
+        ...(revenueLineItemContent[slug] || {}),
+      };
+    });
+
     return {
       slug: cat.slug,
       label: cat.label,
       total,
-      lineItems: cat.lineItems.map((li) => ({ label: li.label, value: li.values[adoptedColumnIndex] })),
-      history,
+      lineItems,
+      history: catHistory,
       shareOfRevenue: grandTotalRevenue ? total / grandTotalRevenue : null,
       ...content,
     };
   });
+
+  const revenueLineItems = revenueCategories.flatMap((c) => c.lineItems);
 
   const revenueBreakdown = revenueCategories.map((c) => ({ label: c.label, value: c.total }));
 
@@ -151,6 +183,7 @@ export default function () {
     revenueTrend,
     revenueBreakdown,
     revenueCategories,
+    revenueLineItems,
     charts,
   };
 }

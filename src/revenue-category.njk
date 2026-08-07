@@ -34,7 +34,7 @@ usesChart: true
   </thead>
   <tbody>
     {% for item in category.lineItems %}
-    <tr><td>{{ item.label }}</td><td>{{ item.value | money }}</td></tr>
+    <tr><td><a href="/revenue/{{ category.slug }}/{{ item.slug }}/">{{ item.label }}</a></td><td>{{ item.value | money }}</td></tr>
     {% endfor %}
     <tr class="total-row"><td>{{ category.label }}, Total</td><td>{{ category.total | money }}</td></tr>
   </tbody>
