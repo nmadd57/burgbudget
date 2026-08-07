@@ -3,7 +3,7 @@ import path from "path";
 import { revenueCategoryContent } from "../content/revenue-categories.js";
 import { revenueLineItemContent } from "../content/revenue-line-items.js";
 import { departmentContent } from "../content/departments.js";
-import { mayorByFiscalYear } from "../content/mayors.js";
+import { mayorByFiscalYear, mayoralSource } from "../content/mayors.js";
 
 const file = path.join(process.cwd(), "data", "fitchburg", "budgets.json");
 
@@ -368,9 +368,13 @@ export default function () {
           let trend = describeTrend(history);
           const share = describeShareOfWhole(history, totalBudgetHistory, "the total city budget");
           if (share) trend = trend ? `${trend} ${share}` : share;
+          let mayoralCitation = null;
           if (content.mayoralDiscretion) {
             const mayoral = describeMayoralComparison(history);
-            if (mayoral) trend = trend ? `${trend} ${mayoral}` : mayoral;
+            if (mayoral) {
+              trend = trend ? `${trend} ${mayoral}` : mayoral;
+              mayoralCitation = mayoralSource;
+            }
           }
           return {
             slug,
@@ -378,6 +382,7 @@ export default function () {
             value: d.values[latest.expenditures.adoptedColumnIndex],
             history,
             trend,
+            mayoralCitation,
             ...content,
           };
         })

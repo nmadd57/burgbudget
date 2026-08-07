@@ -26,6 +26,9 @@ usesChart: true
 {% if dept.trend %}
 <p class="trend-note">{{ dept.trend }}</p>
 <p class="source-note">Computed from each fiscal year's own adopted budget figures below - see <a href="/methodology/">Methodology</a>.</p>
+{% if dept.mayoralCitation %}
+<p class="source-note">Mayor identified from <a href="{{ dept.mayoralCitation.url }}">{{ dept.mayoralCitation.label }}</a>.</p>
+{% endif %}
 {% endif %}
 
 <h2 class="section-head">By Fiscal Year</h2>
