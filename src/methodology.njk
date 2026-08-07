@@ -12,11 +12,15 @@ title: Methodology
 </p>
 
 <div class="notice">
-  The <em>explanatory</em> text on the revenue category pages (what each category is, where it comes from, who
+  The <em>explanatory</em> text on the revenue and department pages (what each item is, where it comes from, who
   controls it, and applicable tax rates) is the one part of this site that's hand-written rather than scraped —
-  state statute and municipal-finance structure don't change often enough to be worth automating, and the source
-  is cited at the bottom of each page. Every dollar figure alongside that text is still pulled from the budget
-  PDF at build time, same as everywhere else.
+  state statute and municipal-finance structure don't change often enough to be worth automating. It's written in
+  plain language on purpose, since most people reading it aren't finance professionals, but the underlying legal
+  citations are real: each "Governing law" link points to the actual Massachusetts General Law on
+  malegislature.gov, verified against the statute's current text rather than assumed from memory. A line item
+  without a citation means it isn't set by a single specific state law (a locally-set fee, a federal grant term,
+  or a bookkeeping offset, for example), not that a citation was skipped. Every dollar figure alongside that text
+  is still pulled from the budget PDF at build time, same as everywhere else.
 </div>
 
 <h2 class="section-head">Data Sources</h2>

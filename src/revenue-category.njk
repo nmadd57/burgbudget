@@ -55,6 +55,9 @@ usesChart: true
 <p>{{ category.rates | md | safe }}</p>
 {% endif %}
 
+{% if category.citation %}
+<p class="source-note">Governing law: <a href="{{ category.citation.url }}">{{ category.citation.label }}</a></p>
+{% endif %}
 {% if category.sourceUrl %}
 <p class="source-note">Background: <a href="{{ category.sourceUrl }}">{{ category.sourceLabel }}</a></p>
 {% endif %}

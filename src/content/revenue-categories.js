@@ -19,6 +19,7 @@ export const revenueCategoryContent = {
       "There's a state law from 1980 called Proposition 2½ that limits how much more property tax the city is allowed to collect each year - normally just 2.5% more than last year, plus whatever new construction adds to the tax rolls. The city can't just decide to collect more; voters would have to approve it directly at the ballot box. Within that limit, the City Council votes each year on how the tax burden is divided up, and the state (the Department of Revenue) has to sign off on the actual tax rate before bills go out.",
     rates:
       "Fitchburg charges the same rate to homeowners and businesses alike - it doesn't split the rate like some cities do. For FY2026, that rate is **$13.29 for every $1,000 your property is worth**, according to the [City Assessors' office](https://www.fitchburgma.gov/195/Assessors). So if your house is valued at $300,000, you'd owe about $3,987 for the year. This number is set fresh every year, so check with the Assessors' office for the current one.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
     sourceLabel: "City Assessors' Office",
     sourceUrl: "https://www.fitchburgma.gov/195/Assessors",
   },
@@ -33,6 +34,7 @@ export const revenueCategoryContent = {
       "State lawmakers decide how much money goes into this program every year when they pass the state budget. The state's education department then works out exactly how much Fitchburg gets, using a formula that's the same for every city and town. The smaller payments - for kids who go to charter schools or choose a different district - work the same way but come with their own, separate state programs, and they don't always fully make up for what the district loses when a student leaves.",
     rates:
       "This isn't something the city sets - it comes from a state formula that's recalculated every year. The state publishes the formula and every district's aid amount at [the state's Chapter 70 page](https://www.doe.mass.edu/finance/chapter70/) if you want to see exactly how Fitchburg's number was reached.",
+    citation: { label: "M.G.L. c. 70 (State Aid for Public Schools)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter70" },
     sourceLabel: "MA Dept. of Elementary & Secondary Education",
     sourceUrl: "https://www.doe.mass.edu/finance/chapter70/",
   },
@@ -47,6 +49,7 @@ export const revenueCategoryContent = {
       "State lawmakers decide the total amount every year. The state then calculates exactly what Fitchburg's share is - the city doesn't get to negotiate or ask for more, beyond making sure it's signed up for the tax-break reimbursement programs it qualifies for.",
     rates:
       "There's no rate to look up - it's a dollar amount the state calculates and sends. You can see every city and town's numbers on the [state's cherry sheet page](https://www.mass.gov/info-details/cherry-sheets).",
+    citation: { label: "M.G.L. c. 59, § 5 (property tax exemptions) & c. 115, § 6 (veterans' benefits)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section5" },
     sourceLabel: "MA Division of Local Services — Cherry Sheets",
     sourceUrl: "https://www.mass.gov/info-details/cherry-sheets",
   },
@@ -60,7 +63,8 @@ export const revenueCategoryContent = {
     whoControlsIt:
       "These charges are set by the state agencies and regional boards that run each program - the City Council doesn't get a vote on the bill itself, though the city did choose to join some of these regional programs (like the bus system) at some point in the past.",
     rates:
-      "Each charge is figured differently - some by population, some by how many Fitchburg kids actually use the service. You can see the full breakdown on the [state's cherry sheet page](https://www.mass.gov/info-details/cherry-sheets).",
+      "Each charge is figured differently - some by population, some by how many Fitchburg kids actually use the service. You can see the full breakdown on the [state's cherry sheet page](https://www.mass.gov/info-details/cherry-sheets). Each assessment's own governing law is cited on its line-item page below.",
+    citation: null,
     sourceLabel: "MA Division of Local Services — Cherry Sheets",
     sourceUrl: "https://www.mass.gov/info-details/cherry-sheets",
   },
@@ -75,6 +79,7 @@ export const revenueCategoryContent = {
       "It depends on the item. The car registration fee is set entirely by the state - the city has no say in that one. The extra tax on restaurant meals, hotel stays, and marijuana sales are all optional add-ons the City Council chose to adopt, up to a cap set by the state. Most other fees and fines are set by the city itself.",
     rates:
       "**Car registration fee (\"excise tax\")**: set by the state at **$25 for every $1,000** your vehicle is worth, based on a fixed depreciation schedule from the original sticker price - not what you could sell it for. **Meals tax**: up to an extra **0.75%** on top of the state's 6.25% meals tax, if the city has adopted it. **Hotel/motel tax**: up to an extra **6%** on top of the state's 5.7% tax, if adopted. **Marijuana sales tax**: up to an extra **3%**, if adopted. Fitchburg has adopted several of these - you can see exactly how much each one brought in this year in the table above.",
+    citation: { label: "M.G.L. c. 60A (vehicle excise), c. 64G (rooms), c. 64L (meals), c. 64N (marijuana)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter60A" },
     sourceLabel: "Mass. Dept. of Revenue — Local Option Excise Taxes",
     sourceUrl: "https://www.mass.gov/local-option-excise-taxes",
   },
@@ -89,6 +94,7 @@ export const revenueCategoryContent = {
       "The city sets its own ambulance fees, usually benchmarked to what other communities or Medicare charges. The school officer arrangement is a handshake agreement between the two governments. The grant reimbursements are whatever each grant's paperwork allows.",
     rates:
       "No single rate to point to - ambulance fees follow the Fire Department's own fee schedule, and the other two are set by agreement or grant terms rather than a published rate.",
+    citation: null,
     sourceLabel: null,
     sourceUrl: null,
   },
@@ -103,6 +109,7 @@ export const revenueCategoryContent = {
       "The water/sewer cost-sharing is worked out by the city's own finance staff. The leftover tax-appeal money is released by the Board of Assessors once they're sure it's not needed. Free cash has to be certified by the state first, based on the city's year-end financial statements, before the City Council can vote to spend any of it.",
     rates:
       "Not fee- or tax-based - these are one-time transfers of money the city already has, not new charges on anyone. See [the state's page on free cash](https://www.mass.gov/info-details/free-cash) for how that certification process works.",
+    citation: { label: "M.G.L. c. 59, § 23 (certification of available funds)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section23" },
     sourceLabel: "MA Division of Local Services — Free Cash",
     sourceUrl: "https://www.mass.gov/info-details/free-cash",
   },

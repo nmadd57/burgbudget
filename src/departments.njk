@@ -22,6 +22,17 @@ usesChart: true
   <script type="application/json" id="total-trend-data">{{ budgets.charts.totalTrend | dump | safe }}</script>
 </div>
 
+<h2 class="section-head">What Each Department Does</h2>
+<p>What it is, who runs it, and the state law behind it, where there is one.</p>
+<div class="columns">
+{% for d in budgets.departmentTotals %}
+  <div class="clipping">
+    <strong><a href="/departments/{{ d.slug }}/">{{ d.name }}</a></strong> — {{ d.value | money }}
+    {% if d.blurb %}<p>{{ d.blurb }}</p>{% endif %}
+  </div>
+{% endfor %}
+</div>
+
 <h2 class="section-head">Full Detail, FY{{ budgets.latest.fiscalYear }}</h2>
 <table>
   <caption>Source: {{ budgets.latest.source.title }} — <a href="{{ budgets.latest.source.url }}">view PDF</a></caption>
@@ -30,7 +41,7 @@ usesChart: true
   </thead>
   <tbody>
     {% for d in budgets.departmentTotals %}
-    <tr><td>{{ d.name }}</td><td>{{ d.value | money }}</td></tr>
+    <tr><td><a href="/departments/{{ d.slug }}/">{{ d.name }}</a></td><td>{{ d.value | money }}</td></tr>
     {% endfor %}
     <tr class="total-row"><td>Total Expenditures</td><td>{{ budgets.latest.expenditures.total[budgets.latest.expenditures.adoptedColumnIndex] | money }}</td></tr>
   </tbody>

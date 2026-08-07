@@ -13,38 +13,47 @@ export const revenueLineItemContent = {
   "prior-year-s-levy-limit": {
     blurb:
       "This is where the math starts: how much property tax the city was allowed to collect last year, before this year's increase gets added on.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
   "add-2-1-2": {
     blurb:
       "State law lets the city add 2.5% more property tax than last year, automatically, every single year - whether or not costs actually went up that much.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
   "add-new-growth": {
     blurb:
       "When new houses get built, old buildings get renovated, or a new business opens up, that adds new property to tax. This is the extra tax money that comes from those new additions to the city - separate from the automatic 2.5% bump.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
   "subtotal-levy-limit": {
     blurb:
       "Add up the three lines above (last year's limit, the automatic 2.5%, and new construction) and this is the running total - the most property tax the city is allowed to collect this year, before a couple of small adjustments.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
   "actual-levy-adjusted-for-rounding": {
     blurb: "The same number as above, just cleaned up for small rounding differences before the state signs off on it.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
   "less-reserve-for-abatements": {
     blurb:
       "The city sets aside some money every year expecting that a number of homeowners will successfully challenge their property tax bill and get a refund. This line is that set-aside, subtracted up front so the city doesn't over-collect.",
+    citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
   },
 
   // --- State Aid: Education ---
   "education-chapter-70": {
     blurb: "The state's main check to help pay for Fitchburg's public schools. See the State Aid — Education page above for how it's calculated.",
+    citation: { label: "M.G.L. c. 70 (State Aid for Public Schools)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter70" },
   },
   "education-charter-tuition-reimbursements": {
     blurb:
       "When a Fitchburg kid goes to a charter school instead, the city has to pay that school tuition. This is the state paying some of that money back to Fitchburg - though usually not all of it.",
+    citation: { label: "M.G.L. c. 71, § 89 (charter schools)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter71/Section89" },
   },
   "education-school-choice-receiving-tuition": {
     blurb:
       "Some kids from other towns choose to attend Fitchburg's public schools instead of their own. Their home town has to pay Fitchburg tuition for that, and this is that payment coming in.",
+    citation: { label: "M.G.L. c. 76, § 12B (school choice)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76/Section12B" },
   },
   "less-offset": {
     blurb:
@@ -58,10 +67,12 @@ export const revenueLineItemContent = {
   "general-veterans-benefits": {
     blurb:
       "Fitchburg helps pay living expenses for veterans in financial need. The state pays back most of what the city spends on this (typically about three-quarters of it).",
+    citation: { label: "M.G.L. c. 115, § 6 (veterans' benefits reimbursement)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXVII/Chapter115/Section6" },
   },
   "exemptions-vets-blind-surviving-spouse-elderly": {
     blurb:
       "State law requires the city to knock money off the property tax bills of certain veterans, blind residents, surviving spouses, and low-income seniors. This is the state chipping in to help cover that lost tax revenue.",
+    citation: { label: "M.G.L. c. 59, § 5 (property tax exemptions)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section5" },
   },
   "general-state-owned-land": {
     blurb:
@@ -78,10 +89,12 @@ export const revenueLineItemContent = {
   "assessment-mosquito-control-projects": {
     blurb:
       "Fitchburg is part of a regional program that sprays for mosquitoes and checks for diseases they can carry. This is the city's share of the bill, split among all the towns in the program.",
+    citation: { label: "M.G.L. c. 252 (mosquito control)", url: "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter252" },
   },
   "assessment-air-pollution-districts": {
     blurb:
       "Fitchburg belongs to a regional group that monitors and manages air quality. This is the city's share of what that group costs to run.",
+    citation: { label: "M.G.L. c. 111 (air pollution control districts)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXVI/Chapter111" },
   },
   "assessment-rmv-non-renewal-surcharge": {
     blurb:
@@ -89,31 +102,39 @@ export const revenueLineItemContent = {
   },
   "assessment-regional-transit": {
     blurb: "Fitchburg's yearly payment to help fund MART, the regional bus system that serves the city and surrounding towns.",
+    citation: { label: "M.G.L. c. 161B (regional transit authorities)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXII/Chapter161B" },
   },
   "assessment-special-education": {
     blurb: "Fitchburg's share of certain special education costs that the state manages and then bills back to the district.",
+    citation: { label: "M.G.L. c. 71B (special education)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter71B" },
   },
   "assessment-school-choice-sending-tuition": {
     blurb:
       "When a Fitchburg kid chooses to attend public school in a different town instead, Fitchburg has to pay that other town tuition. This is that payment going out - the flip side of the tuition Fitchburg receives from other towns' kids.",
+    citation: { label: "M.G.L. c. 76, § 12B (school choice)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76/Section12B" },
   },
   "assessment-charter-school-sending-tuition": {
     blurb:
       "When a Fitchburg kid attends a charter school instead of a Fitchburg public school, the city has to pay that charter school tuition. This is the single biggest bill on the whole assessments list, and the state only pays back part of it (see the reimbursement line under State Aid — Education).",
+    citation: { label: "M.G.L. c. 71, § 89 (charter schools)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter71/Section89" },
   },
 
   // --- Local Receipts ---
   "motor-vehicle-excise": {
     blurb: "The yearly tax on every car and truck registered in Fitchburg. See the Local Receipts page above for the exact rate.",
+    citation: { label: "M.G.L. c. 60A (motor vehicle excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter60A" },
   },
   "other-excise-rooms": {
     blurb: "An extra charge added to your bill when you stay at a hotel or motel in Fitchburg, on top of what the state already charges.",
+    citation: { label: "M.G.L. c. 64G (room occupancy excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter64G" },
   },
   "other-excise-meals": {
     blurb: "An extra charge added to your bill when you eat at a restaurant in Fitchburg, on top of the state's own meals tax.",
+    citation: { label: "M.G.L. c. 64L (local option meals excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter64L" },
   },
   "other-excise-cannabis": {
     blurb: "An extra charge added when you buy legal marijuana from a shop in Fitchburg, on top of state taxes.",
+    citation: { label: "M.G.L. c. 64N (marijuana excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter64N" },
   },
   "penalties-interest-on-taxes": {
     blurb: "Late fees and interest charged to people who pay their property tax or car excise bill after the due date.",
@@ -190,5 +211,6 @@ export const revenueLineItemContent = {
   "available-funds-transfers-one-time": {
     blurb:
       "Mostly \"free cash\" - money left over from last year that wasn't spent, plus revenue that came in higher than expected. The state has to double-check the city's books first, and then the City Council can vote to spend it.",
+    citation: { label: "M.G.L. c. 59, § 23 (certification of available funds)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section23" },
   },
 };

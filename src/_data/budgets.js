@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { revenueCategoryContent } from "../content/revenue-categories.js";
 import { revenueLineItemContent } from "../content/revenue-line-items.js";
+import { departmentContent } from "../content/departments.js";
 
 const file = path.join(process.cwd(), "data", "fitchburg", "budgets.json");
 
@@ -45,7 +46,26 @@ export default function () {
 
   const departmentTotals = latest
     ? latest.expenditures.departments
-        .map((d) => ({ name: d.name, value: d.values[latest.expenditures.adoptedColumnIndex] }))
+        .map((d) => {
+          const slug = slugify(d.name);
+          const content = departmentContent[slug] || {};
+          const history = ok.map((b) => {
+            const match = b.expenditures.departments.find(
+              (x) => x.name.toUpperCase() === d.name.toUpperCase()
+            );
+            return {
+              fiscalYear: b.fiscalYear,
+              value: match ? match.values[b.expenditures.adoptedColumnIndex] : null,
+            };
+          });
+          return {
+            slug,
+            name: d.name,
+            value: d.values[latest.expenditures.adoptedColumnIndex],
+            history,
+            ...content,
+          };
+        })
         .sort((a, b) => b.value - a.value)
     : [];
 
@@ -55,20 +75,7 @@ export default function () {
     confidence: b.expenditures.confidence,
   }));
 
-  const departmentHistory = latest
-    ? latest.expenditures.departments.map((d) => ({
-        name: d.name,
-        history: ok.map((b) => {
-          const match = b.expenditures.departments.find(
-            (x) => x.name.toUpperCase() === d.name.toUpperCase()
-          );
-          return {
-            fiscalYear: b.fiscalYear,
-            value: match ? match.values[b.expenditures.adoptedColumnIndex] : null,
-          };
-        }),
-      }))
-    : [];
+  const departmentHistory = departmentTotals.map((d) => ({ name: d.name, history: d.history }));
 
   const revenueOk = raw.budgets.filter((b) => b.revenue.status === "ok");
   const latestRevenue = revenueOk[revenueOk.length - 1] || null;

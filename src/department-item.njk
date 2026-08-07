@@ -1,0 +1,48 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: budgets.departmentTotals
+  size: 1
+  alias: dept
+permalink: "/departments/{{ dept.slug }}/"
+eleventyComputed:
+  title: "{{ dept.name }}"
+usesChart: true
+---
+<h2 class="headline">{{ dept.name }}</h2>
+<p class="byline">{{ dept.value | money }} adopted for FY{{ budgets.latest.fiscalYear }}</p>
+
+{% if dept.blurb %}
+<p class="lede">{{ dept.blurb | md | safe }}</p>
+{% endif %}
+
+<div class="chart-box">
+  <canvas id="dept-item-trend" data-chart="line" height="90"></canvas>
+  <script type="application/json" id="dept-item-trend-data">
+    {{ { labels: dept.history | pluck("fiscalYear"), series: [ { label: dept.name, values: dept.history | pluck("value") } ] } | dump | safe }}
+  </script>
+</div>
+
+<h2 class="section-head">By Fiscal Year</h2>
+<table>
+  <caption>Source: each year's own Mayor's Budget — see <a href="/methodology/">Methodology</a></caption>
+  <thead>
+    <tr><th>Fiscal Year</th><th>Adopted Amount</th></tr>
+  </thead>
+  <tbody>
+    {% for h in dept.history | reverse %}
+    <tr><td>FY{{ h.fiscalYear }}</td><td>{{ h.value | money }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if dept.whoRunsIt %}
+<h2 class="section-head">Who Runs It</h2>
+<p>{{ dept.whoRunsIt | md | safe }}</p>
+{% endif %}
+
+{% if dept.citation %}
+<p class="source-note">Governing law: <a href="{{ dept.citation.url }}">{{ dept.citation.label }}</a></p>
+{% endif %}
+
+<p><a href="/departments/">&larr; Back to Department Spending</a></p>
