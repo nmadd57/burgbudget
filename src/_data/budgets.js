@@ -214,6 +214,41 @@ function describeLevyUnderride(categoriesByYear) {
 }
 
 /**
+ * The one computation that's meaningful for literally every line on this
+ * site, not just "Add: 2 1/2%": how big a slice of its parent total is
+ * this, and is that slice growing or shrinking? A department eating a
+ * bigger share of the city budget than it used to, or a revenue source
+ * the city is leaning on more (or less) heavily than a decade ago, is
+ * exactly the kind of thing worth surfacing - and unlike a hand-picked
+ * fact, it's cheap to compute correctly for all 70-plus items and stays
+ * correct automatically as new fiscal years are added. Skipped when the
+ * shift is under a percentage point, so it only speaks up when it's
+ * actually worth mentioning.
+ */
+function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel) {
+  const wholeByYear = new Map((wholeHistory || []).map((w) => [w.fiscalYear, w.value]));
+  const points = (itemHistory || [])
+    .filter((h) => h.value !== null && h.value !== undefined)
+    .map((h) => ({ fiscalYear: h.fiscalYear, value: h.value, whole: wholeByYear.get(h.fiscalYear) }))
+    .filter((h) => h.whole !== null && h.whole !== undefined && h.whole !== 0);
+  if (points.length < 2) return null;
+
+  const share = (p) => (Math.abs(p.value) / Math.abs(p.whole)) * 100;
+  const earliest = points[0];
+  const latest = points[points.length - 1];
+  if (earliest.fiscalYear === latest.fiscalYear) return null;
+
+  const earliestShare = share(earliest);
+  const latestShare = share(latest);
+  const diff = latestShare - earliestShare;
+  if (Math.abs(diff) < 1) return null;
+
+  const fmt = (n) => (n < 1 ? "under 1" : n.toFixed(1));
+  const dir = diff > 0 ? "grown" : "shrunk";
+  return `As a share of ${wholeLabel}, this has ${dir} from about ${fmt(earliestShare)}% in FY${earliest.fiscalYear} to ${fmt(latestShare)}% in FY${latest.fiscalYear}.`;
+}
+
+/**
  * Fitchburg's revenue recap has no explicit category tag per line - the
  * category boundary is implicit: every line item up to and including a
  * category-level subtotal (an all-caps "SUB TOTAL - X" row) belongs to
@@ -244,6 +279,13 @@ export default function () {
   const latest = ok[ok.length - 1] || null;
   const prior = ok[ok.length - 2] || null;
 
+  const expenditureTrend = ok.map((b) => ({
+    fiscalYear: b.fiscalYear,
+    total: b.expenditures.total[b.expenditures.adoptedColumnIndex],
+    confidence: b.expenditures.confidence,
+  }));
+  const totalBudgetHistory = expenditureTrend.map((e) => ({ fiscalYear: e.fiscalYear, value: e.total }));
+
   const departmentTotals = latest
     ? latest.expenditures.departments
         .map((d) => {
@@ -258,23 +300,20 @@ export default function () {
               value: match ? match.values[b.expenditures.adoptedColumnIndex] : null,
             };
           });
+          let trend = describeTrend(history);
+          const share = describeShareOfWhole(history, totalBudgetHistory, "the total city budget");
+          if (share) trend = trend ? `${trend} ${share}` : share;
           return {
             slug,
             name: d.name,
             value: d.values[latest.expenditures.adoptedColumnIndex],
             history,
-            trend: describeTrend(history),
+            trend,
             ...content,
           };
         })
         .sort((a, b) => b.value - a.value)
     : [];
-
-  const expenditureTrend = ok.map((b) => ({
-    fiscalYear: b.fiscalYear,
-    total: b.expenditures.total[b.expenditures.adoptedColumnIndex],
-    confidence: b.expenditures.confidence,
-  }));
 
   const departmentHistory = departmentTotals.map((d) => ({ name: d.name, history: d.history }));
 
@@ -287,6 +326,7 @@ export default function () {
       total: totalItem ? totalItem.values[b.revenue.adoptedColumnIndex] : null,
     };
   });
+  const totalRevenueHistory = revenueTrend.map((r) => ({ fiscalYear: r.fiscalYear, value: r.total }));
 
   // Per-fiscal-year category groupings, oldest to newest, for building
   // per-category history trends and the category sub-pages.
@@ -338,11 +378,14 @@ export default function () {
         const underride = describeLevyUnderride(revenueCategoriesByYear);
         if (underride) trend = trend ? `${trend} ${underride}` : underride;
       }
+      const categoryLabel = content.label || cat.label;
+      const share = describeShareOfWhole(history, catHistory, categoryLabel);
+      if (share) trend = trend ? `${trend} ${share}` : share;
 
       return {
         slug,
         categorySlug: cat.slug,
-        categoryLabel: content.label || cat.label,
+        categoryLabel,
         label: li.label,
         value: li.values[adoptedColumnIndex],
         history,
@@ -351,13 +394,17 @@ export default function () {
       };
     });
 
+    let categoryTrend = describeTrend(catHistory);
+    const categoryShare = describeShareOfWhole(catHistory, totalRevenueHistory, "total operating revenue");
+    if (categoryShare) categoryTrend = categoryTrend ? `${categoryTrend} ${categoryShare}` : categoryShare;
+
     return {
       slug: cat.slug,
       label: cat.label,
       total,
       lineItems,
       history: catHistory,
-      trend: describeTrend(catHistory),
+      trend: categoryTrend,
       shareOfRevenue: grandTotalRevenue ? total / grandTotalRevenue : null,
       ...content,
     };
