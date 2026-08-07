@@ -3,6 +3,7 @@ import path from "path";
 import { revenueCategoryContent } from "../content/revenue-categories.js";
 import { revenueLineItemContent } from "../content/revenue-line-items.js";
 import { departmentContent } from "../content/departments.js";
+import { mayorByFiscalYear } from "../content/mayors.js";
 
 const file = path.join(process.cwd(), "data", "fitchburg", "budgets.json");
 
@@ -250,6 +251,68 @@ function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel) {
   return `Put another way: back in FY${earliest.fiscalYear} this made up about ${fmt(earliestShare)}% of ${wholeLabel} - today it's ${fmt(latestShare)}%, a ${dir} slice than before.`;
 }
 
+function mayoralSpanText(pts) {
+  if (pts.length === 1) return `FY${pts[0].fiscalYear}`;
+  return `FY${pts[0].fiscalYear} through FY${pts[pts.length - 1].fiscalYear}`;
+}
+
+/**
+ * Only meaningful for departments the Mayor actually appoints the head of
+ * (see the "mayoralDiscretion" flag in src/content/departments.js) - for
+ * those, compares the sitting mayor's average budget for this department
+ * against the immediately preceding mayor's average, using the verified
+ * fiscal-year-to-mayor mapping in src/content/mayors.js. Only fires when
+ * the department's own history actually spans a mayoral transition; a
+ * department whose recorded years all fall under one mayor has nothing to
+ * compare yet.
+ */
+function describeMayoralComparison(history) {
+  const points = (history || [])
+    .filter((h) => h.value !== null && h.value !== undefined && mayorByFiscalYear[h.fiscalYear])
+    .map((h) => ({ fiscalYear: h.fiscalYear, value: h.value, mayor: mayorByFiscalYear[h.fiscalYear] }))
+    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+  if (points.length === 0) return null;
+
+  const order = [];
+  const byMayor = new Map();
+  for (const p of points) {
+    if (!byMayor.has(p.mayor)) {
+      byMayor.set(p.mayor, []);
+      order.push(p.mayor);
+    }
+    byMayor.get(p.mayor).push(p);
+  }
+  if (order.length < 2) return null;
+
+  const currentMayor = order[order.length - 1];
+  const previousMayor = order[order.length - 2];
+  const currentPts = byMayor.get(currentMayor);
+  const previousPts = byMayor.get(previousMayor);
+
+  const avg = (pts) => pts.reduce((s, p) => s + p.value, 0) / pts.length;
+  const currentAvg = avg(currentPts);
+  const previousAvg = avg(previousPts);
+  if (previousAvg === 0) return null;
+
+  const diffPct = ((currentAvg - previousAvg) / Math.abs(previousAvg)) * 100;
+  const absPct = Math.abs(diffPct);
+  const currentAmountPhrase =
+    currentPts.length === 1 ? formatMoney(currentPts[0].value) : `an average of ${formatMoney(currentAvg)} a year`;
+  const previousAmountPhrase = `an average of ${formatMoney(previousAvg)} a year`;
+
+  if (absPct < 1) {
+    return `Mayor ${currentMayor} has kept this at almost exactly what Mayor ${previousMayor} did: ${currentAmountPhrase} over ${mayoralSpanText(
+      currentPts
+    )}, versus ${previousAmountPhrase} under Mayor ${previousMayor} over ${mayoralSpanText(previousPts)}.`;
+  }
+  const dir = diffPct > 0 ? "more" : "less";
+  return `Since taking office, Mayor ${currentMayor} has budgeted ${currentAmountPhrase} for this over ${mayoralSpanText(
+    currentPts
+  )} - about ${Math.round(absPct)}% ${dir} than Mayor ${previousMayor} budgeted (${previousAmountPhrase} over ${mayoralSpanText(
+    previousPts
+  )}).`;
+}
+
 /**
  * Fitchburg's revenue recap has no explicit category tag per line - the
  * category boundary is implicit: every line item up to and including a
@@ -305,6 +368,10 @@ export default function () {
           let trend = describeTrend(history);
           const share = describeShareOfWhole(history, totalBudgetHistory, "the total city budget");
           if (share) trend = trend ? `${trend} ${share}` : share;
+          if (content.mayoralDiscretion) {
+            const mayoral = describeMayoralComparison(history);
+            if (mayoral) trend = trend ? `${trend} ${mayoral}` : mayoral;
+          }
           return {
             slug,
             name: d.name,
