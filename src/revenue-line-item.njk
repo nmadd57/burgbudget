@@ -26,6 +26,10 @@ usesChart: true
   </script>
 </div>
 
+{% if item.trend %}
+<p class="trend-note">{{ item.trend }}</p>
+{% endif %}
+
 <h2 class="section-head">By Fiscal Year</h2>
 <table>
   <caption>Source: each year's own Mayor's Budget recap — see <a href="/methodology/">Methodology</a></caption>

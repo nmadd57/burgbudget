@@ -297,6 +297,15 @@ tr.total-row th {
   margin-top: 0.3rem;
 }
 
+.trend-note {
+  border-left: 3px solid var(--ink-soft);
+  padding: 0.6rem 1rem;
+  margin: 1.25rem 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
 .doc-list {
   list-style: none;
   padding: 0;

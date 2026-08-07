@@ -26,6 +26,10 @@ usesChart: true
   </script>
 </div>
 
+{% if category.trend %}
+<p class="trend-note">{{ category.trend }}</p>
+{% endif %}
+
 <h2 class="section-head">Line Items, FY{{ budgets.latestRevenue.fiscalYear }}</h2>
 <table>
   <caption>Source: {{ budgets.latestRevenue.source.title }} &mdash; <a href="{{ budgets.latestRevenue.source.url }}">view PDF</a></caption>

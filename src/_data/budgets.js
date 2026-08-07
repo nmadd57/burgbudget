@@ -13,6 +13,99 @@ function slugify(label) {
     .replace(/^-+|-+$/g, "");
 }
 
+function formatMoney(n) {
+  if (n === null || n === undefined || Number.isNaN(n)) return "—";
+  const sign = n < 0 ? "-" : "";
+  return sign + "$" + Math.abs(Math.round(n)).toLocaleString("en-US");
+}
+
+/**
+ * Generate a conversational, deterministic sentence describing how a
+ * figure changed year over year, plus (with enough history) a longer-run
+ * read on the trend. Deliberately not hand-written: this is a pure
+ * function of the `history` array pulled from data/fitchburg/budgets.json
+ * each build, so the wording updates on its own whenever a new fiscal
+ * year's figures come in - never stored, never stale. The phrasing varies
+ * by the size of the swing (not randomly - same inputs always produce the
+ * same sentence) so 70-plus line items don't all read identically.
+ */
+function describeTrend(history) {
+  const points = (history || []).filter((h) => h.value !== null && h.value !== undefined);
+  if (points.length < 2) return null;
+
+  // Some lines (state assessments, "Less: Offset" rows) are charges printed
+  // as negative numbers throughout their history. Describing those by raw
+  // sign ("fell 10% to -$4.8M") reads backwards - the bill actually grew.
+  // When every known value is zero-or-negative, describe the size of the
+  // charge instead, using absolute values, so "grew"/"shrank" match reality.
+  const isCharge = points.every((p) => p.value <= 0) && points.some((p) => p.value < 0);
+  const magnitude = (v) => (isCharge ? Math.abs(v) : v);
+  const subject = isCharge ? "the size of this charge" : "this";
+
+  const latest = points[points.length - 1];
+  const prior = points[points.length - 2];
+  const consecutiveYears = prior.fiscalYear === latest.fiscalYear - 1;
+  const diff = magnitude(latest.value) - magnitude(prior.value);
+  const priorMag = magnitude(prior.value);
+  const pct = priorMag !== 0 ? (diff / Math.abs(priorMag)) * 100 : null;
+  const absPct = pct !== null ? Math.abs(pct) : null;
+
+  let verb;
+  if (diff === 0) {
+    verb = "held exactly steady";
+  } else if (absPct !== null && absPct < 1) {
+    verb = diff > 0 ? "ticked up just slightly" : "ticked down just slightly";
+  } else if (absPct !== null && absPct < 5) {
+    verb = diff > 0 ? "inched up" : "eased down";
+  } else if (absPct !== null && absPct < 15) {
+    verb = diff > 0 ? "rose" : "fell";
+  } else if (absPct !== null && absPct < 35) {
+    verb = diff > 0 ? "climbed" : "dropped";
+  } else if (absPct !== null) {
+    verb = diff > 0 ? "jumped" : "plunged";
+  } else {
+    verb = diff > 0 ? "grew" : "shrank";
+  }
+
+  const yearPhrase = consecutiveYears
+    ? `FY${prior.fiscalYear}`
+    : `the last year with data on record (FY${prior.fiscalYear})`;
+  const pctPhrase =
+    absPct !== null
+      ? `, ${absPct < 1 ? "less than 1%" : Math.round(absPct) + "%"} ${diff > 0 ? "higher" : "lower"}`
+      : "";
+  const joiner = diff === 0 ? "at" : "to";
+
+  let sentence = `Compared to ${yearPhrase}, ${subject} ${verb} ${joiner} ${formatMoney(magnitude(latest.value))}${pctPhrase} (from ${formatMoney(magnitude(prior.value))}).`;
+
+  if (points.length >= 4) {
+    let ups = 0;
+    let downs = 0;
+    for (let i = 1; i < points.length; i++) {
+      const d = magnitude(points[i].value) - magnitude(points[i - 1].value);
+      if (d > 0) ups++;
+      else if (d < 0) downs++;
+    }
+    const climbedOrGrew = isCharge ? "grown" : "climbed";
+    const declinedOrShrank = isCharge ? "shrunk" : "declined";
+    let longRun;
+    if (ups >= points.length - 2) {
+      longRun = `It's ${climbedOrGrew} in nearly every year on record going back to FY${points[0].fiscalYear}.`;
+    } else if (downs >= points.length - 2) {
+      longRun = `It's ${declinedOrShrank} in nearly every year on record going back to FY${points[0].fiscalYear}.`;
+    } else if (Math.abs(ups - downs) <= 1) {
+      longRun = `Looking further back, it's bounced up and down from year to year rather than moving steadily in one direction.`;
+    } else if (ups > downs) {
+      longRun = `Looking further back, it's trended ${isCharge ? "bigger" : "upward"} since FY${points[0].fiscalYear}, even with a few down years along the way.`;
+    } else {
+      longRun = `Looking further back, it's trended ${isCharge ? "smaller" : "downward"} since FY${points[0].fiscalYear}, even with a few up years along the way.`;
+    }
+    sentence += ` ${longRun}`;
+  }
+
+  return sentence;
+}
+
 /**
  * Fitchburg's revenue recap has no explicit category tag per line - the
  * category boundary is implicit: every line item up to and including a
@@ -63,6 +156,7 @@ export default function () {
             name: d.name,
             value: d.values[latest.expenditures.adoptedColumnIndex],
             history,
+            trend: describeTrend(history),
             ...content,
           };
         })
@@ -139,6 +233,7 @@ export default function () {
         label: li.label,
         value: li.values[adoptedColumnIndex],
         history,
+        trend: describeTrend(history),
         ...(revenueLineItemContent[slug] || {}),
       };
     });
@@ -149,6 +244,7 @@ export default function () {
       total,
       lineItems,
       history: catHistory,
+      trend: describeTrend(catHistory),
       shareOfRevenue: grandTotalRevenue ? total / grandTotalRevenue : null,
       ...content,
     };
