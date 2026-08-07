@@ -28,6 +28,7 @@ usesChart: true
 
 {% if category.trend %}
 <p class="trend-note">{{ category.trend }}</p>
+<p class="source-note">Computed from this category's own year-by-year revenue recap figures, charted above - see <a href="/methodology/">Methodology</a>.</p>
 {% endif %}
 
 <h2 class="section-head">Line Items, FY{{ budgets.latestRevenue.fiscalYear }}</h2>

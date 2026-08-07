@@ -45,7 +45,7 @@ function describeTrend(history) {
   // charge instead, using absolute values, so "grew"/"shrank" match reality.
   const isCharge = points.every((p) => p.value <= 0) && points.some((p) => p.value < 0);
   const magnitude = (v) => (isCharge ? Math.abs(v) : v);
-  const subject = isCharge ? "the size of this charge" : "this";
+  const subject = isCharge ? "The size of this charge" : "This";
 
   const latest = points[points.length - 1];
   const prior = points[points.length - 2];
@@ -56,9 +56,7 @@ function describeTrend(history) {
   const absPct = pct !== null ? Math.abs(pct) : null;
 
   let verb;
-  if (diff === 0) {
-    verb = "held exactly steady";
-  } else if (absPct !== null && absPct < 1) {
+  if (absPct !== null && absPct < 1) {
     verb = diff > 0 ? "ticked up just slightly" : "ticked down just slightly";
   } else if (absPct !== null && absPct < 5) {
     verb = diff > 0 ? "inched up" : "eased down";
@@ -76,12 +74,16 @@ function describeTrend(history) {
     ? `FY${prior.fiscalYear}`
     : `the last year with data on record (FY${prior.fiscalYear})`;
   const pctPhrase =
-    absPct !== null
-      ? `, ${absPct < 1 ? "less than 1%" : Math.round(absPct) + "%"} ${diff > 0 ? "higher" : "lower"}`
-      : "";
-  const joiner = diff === 0 ? "at" : "to";
+    absPct !== null ? `, about ${absPct < 1 ? "less than 1%" : Math.round(absPct) + "%"}` : "";
 
-  let sentence = `Compared to ${yearPhrase}, ${subject} ${verb} ${joiner} ${formatMoney(magnitude(latest.value))}${pctPhrase} (from ${formatMoney(magnitude(prior.value))}).`;
+  let sentence;
+  if (diff === 0) {
+    sentence = `${subject} stayed exactly flat this year at ${formatMoney(magnitude(latest.value))}, same as ${yearPhrase}.`;
+  } else if (absPct !== null) {
+    sentence = `${subject} ${verb} to ${formatMoney(magnitude(latest.value))} this year${pctPhrase} ${diff > 0 ? "more" : "less"} than the ${formatMoney(magnitude(prior.value))} it was in ${yearPhrase}.`;
+  } else {
+    sentence = `${subject} ${verb} to ${formatMoney(magnitude(latest.value))} this year, ${diff > 0 ? "up" : "down"} from ${formatMoney(magnitude(prior.value))} in ${yearPhrase}.`;
+  }
 
   if (points.length >= 4) {
     let ups = 0;
@@ -91,19 +93,19 @@ function describeTrend(history) {
       if (d > 0) ups++;
       else if (d < 0) downs++;
     }
-    const climbedOrGrew = isCharge ? "grown" : "climbed";
-    const declinedOrShrank = isCharge ? "shrunk" : "declined";
+    const climbedOrGrew = isCharge ? "gotten bigger" : "climbed";
+    const declinedOrShrank = isCharge ? "gotten smaller" : "gone down";
     let longRun;
     if (ups >= points.length - 2) {
-      longRun = `It's ${climbedOrGrew} in nearly every year on record going back to FY${points[0].fiscalYear}.`;
+      longRun = `Zoom out and the pattern holds: it's ${climbedOrGrew} almost every single year going back to FY${points[0].fiscalYear}.`;
     } else if (downs >= points.length - 2) {
-      longRun = `It's ${declinedOrShrank} in nearly every year on record going back to FY${points[0].fiscalYear}.`;
+      longRun = `Zoom out and the pattern holds: it's ${declinedOrShrank} almost every single year going back to FY${points[0].fiscalYear}.`;
     } else if (Math.abs(ups - downs) <= 1) {
-      longRun = `Looking further back, it's bounced up and down from year to year rather than moving steadily in one direction.`;
+      longRun = `Zoom out, though, and there's no clear pattern - it's bounced up and down from year to year rather than moving steadily one way.`;
     } else if (ups > downs) {
-      longRun = `Looking further back, it's trended ${isCharge ? "bigger" : "upward"} since FY${points[0].fiscalYear}, even with a few down years along the way.`;
+      longRun = `Zoom out and the trend is ${isCharge ? "bigger" : "upward"} since FY${points[0].fiscalYear}, even with a few down years mixed in.`;
     } else {
-      longRun = `Looking further back, it's trended ${isCharge ? "smaller" : "downward"} since FY${points[0].fiscalYear}, even with a few up years along the way.`;
+      longRun = `Zoom out and the trend is ${isCharge ? "smaller" : "downward"} since FY${points[0].fiscalYear}, even with a few up years mixed in.`;
     }
     sentence += ` ${longRun}`;
   }
@@ -171,7 +173,7 @@ function describeNotable(history) {
         }
       }
       if (streak >= 3 && dir !== null && dir !== latestMove) {
-        return `Worth noting: that breaks a streak of ${streak} straight years moving the other direction.`;
+        return `Worth noting: that's a change of direction - it had gone the other way for ${streak} years straight before this.`;
       }
     }
   }
@@ -205,12 +207,12 @@ function describeLevyUnderride(categoriesByYear) {
   }
   if (shortfalls.length === 0) return null;
   const latest = shortfalls[shortfalls.length - 1];
-  const verb = latest.diff < 0 ? "less than" : "more than";
-  return `Worth noting: in FY${latest.fiscalYear}, the city took ${formatMoney(
-    Math.abs(latest.diff)
-  )} ${verb} the full 2.5% increase it was allowed under Proposition 2½ - ${formatMoney(
+  const action = latest.diff < 0 ? "chose not to take the full" : "took more than the standard";
+  return `Worth noting: in FY${latest.fiscalYear} the city ${action} 2.5% property tax increase it's allowed to add each year under Proposition 2½. It added ${formatMoney(
     latest.actual
-  )} instead of the full ${formatMoney(Math.round(latest.expected))}.`;
+  )} instead of the full ${formatMoney(Math.round(latest.expected))} - about ${formatMoney(Math.abs(latest.diff))} ${
+    latest.diff < 0 ? "less" : "more"
+  } than the maximum.`;
 }
 
 /**
@@ -244,8 +246,8 @@ function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel) {
   if (Math.abs(diff) < 1) return null;
 
   const fmt = (n) => (n < 1 ? "under 1" : n.toFixed(1));
-  const dir = diff > 0 ? "grown" : "shrunk";
-  return `As a share of ${wholeLabel}, this has ${dir} from about ${fmt(earliestShare)}% in FY${earliest.fiscalYear} to ${fmt(latestShare)}% in FY${latest.fiscalYear}.`;
+  const dir = diff > 0 ? "bigger" : "smaller";
+  return `Put another way: back in FY${earliest.fiscalYear} this made up about ${fmt(earliestShare)}% of ${wholeLabel} - today it's ${fmt(latestShare)}%, a ${dir} slice than before.`;
 }
 
 /**
