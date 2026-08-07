@@ -127,10 +127,22 @@ export const revenueLineItemContent = {
   "other-excise-rooms": {
     blurb: "An extra charge added to your bill when you stay at a hotel or motel in Fitchburg, on top of what the state already charges.",
     citation: { label: "M.G.L. c. 64G (room occupancy excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter64G" },
+    historicalNote: {
+      note:
+        "A big share of this line historically comes from a single property: the Great Wolf Lodge water park resort, which alone has generated roughly $1 million a year in hotel tax for the city in some years. That's worth keeping in mind looking at the chart above - swings in this line often track what's happening at one hotel more than the local hotel market as a whole. The resort laid off 700 workers during the COVID-19 pandemic, one of the largest single mass layoffs in Central Massachusetts at the time, which lines up with this line briefly dropping to zero.",
+      sourceLabel: "Worcester Business Journal",
+      sourceUrl: "https://www.wbjournal.com/article/great-wolf-lodges-700-layoffs-lead-the-more-than-1400-announced-in-central-mass",
+    },
   },
   "other-excise-meals": {
     blurb: "An extra charge added to your bill when you eat at a restaurant in Fitchburg, on top of the state's own meals tax.",
     citation: { label: "M.G.L. c. 64L (local option meals excise)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter64L" },
+    historicalNote: {
+      note:
+        "Fitchburg's City Council adopted this local option in a 7-4 vote in March 2025, which is why it shows up in the budget for the first time in FY2026 rather than having a longer history like most other local receipts.",
+      sourceLabel: "Sentinel & Enterprise",
+      sourceUrl: "https://edition.pagesuite.com/tribune/article_popover.aspx?guid=4829053d-8956-4aaa-bd20-e65dd68bc739",
+    },
   },
   "other-excise-cannabis": {
     blurb: "An extra charge added when you buy legal marijuana from a shop in Fitchburg, on top of state taxes.",

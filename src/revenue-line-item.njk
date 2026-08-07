@@ -30,6 +30,16 @@ usesChart: true
 <p class="trend-note">{{ item.trend }}</p>
 {% endif %}
 
+{% if item.historicalNote %}
+<div class="clipping">
+  <strong>Backstory</strong>
+  <p>{{ item.historicalNote.note | md | safe }}</p>
+  {% if item.historicalNote.sourceUrl %}
+  <p class="source-note">Source: <a href="{{ item.historicalNote.sourceUrl }}">{{ item.historicalNote.sourceLabel }}</a></p>
+  {% endif %}
+</div>
+{% endif %}
+
 <h2 class="section-head">By Fiscal Year</h2>
 <table>
   <caption>Source: each year's own Mayor's Budget recap — see <a href="/methodology/">Methodology</a></caption>

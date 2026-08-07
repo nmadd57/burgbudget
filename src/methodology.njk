@@ -28,7 +28,22 @@ title: Methodology
   text above it - it's a sentence generated fresh at build time from that item's own year-by-year figures. The
   wording (whether something "inched up," "jumped," or "held steady") is picked automatically based on how big
   the swing was, not written in advance and not random - the same figures always produce the same sentence, and
-  the sentence changes on its own the next time the underlying numbers do.
+  the sentence changes on its own the next time the underlying numbers do. That same automated check also
+  watches for a handful of specific patterns worth flagging - a line item showing up in the budget for the
+  first time, a line dropping to zero for a year before coming back, or a year that breaks a multi-year streak
+  of consistent increases or decreases - and adds a sentence about it when it finds one, using nothing but that
+  item's own figures. The "Add: 2 1/2%" line gets one extra, purpose-built check on top of the generic one:
+  Proposition 2½ caps that line at exactly 2.5% of the prior year's levy limit, so the pipeline computes what
+  that 2.5% should have been each year and says so whenever the city actually took less (or, in principle,
+  more) than the full amount.
+</div>
+
+<div class="notice">
+  A few pages also carry a "Backstory" box - a short, separately hand-researched note with its own named
+  source, distinct from both the generated trend sentence and the plain-language explanations above. These
+  exist only where they add real context a reader would otherwise be missing (why the hotel tax briefly hit
+  zero, why the meals tax has no history before FY2026) and are added sparingly, not for every line - most
+  pages won't have one.
 </div>
 
 <h2 class="section-head">Data Sources</h2>

@@ -31,7 +31,12 @@ function formatMoney(n) {
  */
 function describeTrend(history) {
   const points = (history || []).filter((h) => h.value !== null && h.value !== undefined);
-  if (points.length < 2) return null;
+  if (points.length === 0) return null;
+  if (points.length === 1) {
+    // Not enough history for a year-over-year comparison, but a brand-new
+    // line item showing up for the first time is itself worth saying.
+    return describeNotable(history);
+  }
 
   // Some lines (state assessments, "Less: Offset" rows) are charges printed
   // as negative numbers throughout their history. Describing those by raw
@@ -103,7 +108,109 @@ function describeTrend(history) {
     sentence += ` ${longRun}`;
   }
 
+  const notable = describeNotable(history);
+  if (notable) sentence += ` ${notable}`;
+
   return sentence;
+}
+
+/**
+ * Spot a handful of specific, purely data-driven patterns worth calling
+ * out - same deal as describeTrend: computed fresh from `history` every
+ * build, nothing hand-written or cached. Checks (in priority order, picks
+ * at most one so the paragraph doesn't get cluttered):
+ *   1. This line just showed up in the budget for the first time.
+ *   2. This line went quiet (a zero year) in the middle of an otherwise
+ *      active history, then came back.
+ *   3. This year broke a streak of 3+ consecutive years all moving the
+ *      same direction.
+ */
+function describeNotable(history) {
+  const all = (history || []).slice().sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const points = all.filter((h) => h.value !== null && h.value !== undefined);
+  if (points.length < 1) return null;
+
+  const firstIdxInAll = all.findIndex((h) => h.value !== null && h.value !== undefined);
+  if (firstIdxInAll > 0) {
+    const firstPoint = all[firstIdxInAll];
+    if (firstIdxInAll === all.length - 1) {
+      return `FY${firstPoint.fiscalYear} is the first year this has shown up in the budget at all.`;
+    }
+    if (all.length - firstIdxInAll <= 3) {
+      return `This is a fairly new addition to the budget - it didn't appear in years before FY${firstPoint.fiscalYear}.`;
+    }
+  }
+
+  if (points.length < 2) return null;
+
+  for (let i = points.length - 2; i >= 1; i--) {
+    if (points[i].value === 0 && points[i - 1].value !== 0 && points[i + 1].value !== 0) {
+      return `It dropped to zero in FY${points[i].fiscalYear} before coming back the following year.`;
+    }
+  }
+
+  if (points.length >= 5) {
+    const moves = [];
+    for (let i = 1; i < points.length; i++) {
+      const d = points[i].value - points[i - 1].value;
+      moves.push(d > 0 ? 1 : d < 0 ? -1 : 0);
+    }
+    const latestMove = moves[moves.length - 1];
+    if (latestMove !== 0) {
+      let streak = 0;
+      let dir = null;
+      for (let i = moves.length - 2; i >= 0; i--) {
+        if (moves[i] === 0) break;
+        if (dir === null) {
+          dir = moves[i];
+          streak = 1;
+        } else if (moves[i] === dir) {
+          streak++;
+        } else {
+          break;
+        }
+      }
+      if (streak >= 3 && dir !== null && dir !== latestMove) {
+        return `Worth noting: that breaks a streak of ${streak} straight years moving the other direction.`;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Proposition 2½ lets the levy limit grow by at most 2.5% a year
+ * automatically - the "Add: 2 1/2%" line should always equal exactly
+ * 2.5% of the prior year's levy limit unless the City Council chose to
+ * take less than the full increase that year. Computed fresh from the
+ * same parsed figures as everything else (no hand-curated year list) by
+ * comparing "Add: 2 1/2%" against 2.5% of "Prior Year's Levy Limit" for
+ * every fiscal year on record.
+ */
+function describeLevyUnderride(categoriesByYear) {
+  const shortfalls = [];
+  for (const y of categoriesByYear) {
+    const cat = y.categories.find((c) => c.slug === "taxation");
+    if (!cat) continue;
+    const prior = cat.lineItems.find((li) => /prior year.*levy/i.test(li.label));
+    const add25 = cat.lineItems.find((li) => /^add:\s*2\s*1\/2/i.test(li.label));
+    if (!prior || !add25) continue;
+    const expected = prior.values[y.adoptedColumnIndex] * 0.025;
+    const actual = add25.values[y.adoptedColumnIndex];
+    const diff = actual - expected;
+    if (Math.abs(diff) > 1000) {
+      shortfalls.push({ fiscalYear: y.fiscalYear, diff, expected, actual });
+    }
+  }
+  if (shortfalls.length === 0) return null;
+  const latest = shortfalls[shortfalls.length - 1];
+  const verb = latest.diff < 0 ? "less than" : "more than";
+  return `Worth noting: in FY${latest.fiscalYear}, the city took ${formatMoney(
+    Math.abs(latest.diff)
+  )} ${verb} the full 2.5% increase it was allowed under Proposition 2½ - ${formatMoney(
+    latest.actual
+  )} instead of the full ${formatMoney(Math.round(latest.expected))}.`;
 }
 
 /**
@@ -226,6 +333,12 @@ export default function () {
         return { fiscalYear: y.fiscalYear, value: match ? match.values[y.adoptedColumnIndex] : null };
       });
 
+      let trend = describeTrend(history);
+      if (slug === "add-2-1-2") {
+        const underride = describeLevyUnderride(revenueCategoriesByYear);
+        if (underride) trend = trend ? `${trend} ${underride}` : underride;
+      }
+
       return {
         slug,
         categorySlug: cat.slug,
@@ -233,7 +346,7 @@ export default function () {
         label: li.label,
         value: li.values[adoptedColumnIndex],
         history,
-        trend: describeTrend(history),
+        trend,
         ...(revenueLineItemContent[slug] || {}),
       };
     });
