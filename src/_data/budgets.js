@@ -22,13 +22,19 @@ function formatMoney(n) {
 
 /**
  * Generate a conversational, deterministic sentence describing how a
- * figure changed year over year, plus (with enough history) a longer-run
- * read on the trend. Deliberately not hand-written: this is a pure
- * function of the `history` array pulled from data/fitchburg/budgets.json
+ * figure changed year over year. Deliberately not hand-written: this is a
+ * pure function of the `history` array pulled from data/fitchburg/budgets.json
  * each build, so the wording updates on its own whenever a new fiscal
  * year's figures come in - never stored, never stale. The phrasing varies
  * by the size of the swing (not randomly - same inputs always produce the
  * same sentence) so 70-plus line items don't all read identically.
+ *
+ * Deliberately does NOT report a multi-year "climbed most years" streak on
+ * its own - almost every budget line rises in most years simply because of
+ * inflation and cost-of-living raises, so a bare up/down streak reads as
+ * signal when it's actually noise. What's actually worth knowing - is the
+ * city prioritizing this more or less than it used to, relative to
+ * everything else - is answered by describeShareOfWhole() below instead.
  */
 function describeTrend(history) {
   const points = (history || []).filter((h) => h.value !== null && h.value !== undefined);
@@ -84,31 +90,6 @@ function describeTrend(history) {
     sentence = `${subject} ${verb} to ${formatMoney(magnitude(latest.value))} this year${pctPhrase} ${diff > 0 ? "more" : "less"} than the ${formatMoney(magnitude(prior.value))} it was in ${yearPhrase}.`;
   } else {
     sentence = `${subject} ${verb} to ${formatMoney(magnitude(latest.value))} this year, ${diff > 0 ? "up" : "down"} from ${formatMoney(magnitude(prior.value))} in ${yearPhrase}.`;
-  }
-
-  if (points.length >= 4) {
-    let ups = 0;
-    let downs = 0;
-    for (let i = 1; i < points.length; i++) {
-      const d = magnitude(points[i].value) - magnitude(points[i - 1].value);
-      if (d > 0) ups++;
-      else if (d < 0) downs++;
-    }
-    const climbedOrGrew = isCharge ? "gotten bigger" : "climbed";
-    const declinedOrShrank = isCharge ? "gotten smaller" : "gone down";
-    let longRun;
-    if (ups >= points.length - 2) {
-      longRun = `Zoom out and the pattern holds: it's ${climbedOrGrew} almost every single year going back to FY${points[0].fiscalYear}.`;
-    } else if (downs >= points.length - 2) {
-      longRun = `Zoom out and the pattern holds: it's ${declinedOrShrank} almost every single year going back to FY${points[0].fiscalYear}.`;
-    } else if (Math.abs(ups - downs) <= 1) {
-      longRun = `Zoom out, though, and there's no clear pattern - it's bounced up and down from year to year rather than moving steadily one way.`;
-    } else if (ups > downs) {
-      longRun = `Zoom out and the trend is ${isCharge ? "bigger" : "upward"} since FY${points[0].fiscalYear}, even with a few down years mixed in.`;
-    } else {
-      longRun = `Zoom out and the trend is ${isCharge ? "smaller" : "downward"} since FY${points[0].fiscalYear}, even with a few up years mixed in.`;
-    }
-    sentence += ` ${longRun}`;
   }
 
   const notable = describeNotable(history);
@@ -228,7 +209,7 @@ function describeLevyUnderride(categoriesByYear) {
  * shift is under a percentage point, so it only speaks up when it's
  * actually worth mentioning.
  */
-function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel) {
+function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel, isSpending) {
   const wholeByYear = new Map((wholeHistory || []).map((w) => [w.fiscalYear, w.value]));
   const points = (itemHistory || [])
     .filter((h) => h.value !== null && h.value !== undefined)
@@ -247,6 +228,10 @@ function describeShareOfWhole(itemHistory, wholeHistory, wholeLabel) {
   if (Math.abs(diff) < 1) return null;
 
   const fmt = (n) => (n < 1 ? "under 1" : n.toFixed(1));
+  if (isSpending) {
+    const dir = diff > 0 ? "a bigger priority" : "a smaller priority";
+    return `Put another way: this took up about ${fmt(earliestShare)}% of ${wholeLabel} back in FY${earliest.fiscalYear} - today it's ${fmt(latestShare)}%, meaning the city has made this ${dir} than it used to be.`;
+  }
   const dir = diff > 0 ? "bigger" : "smaller";
   return `Put another way: back in FY${earliest.fiscalYear} this made up about ${fmt(earliestShare)}% of ${wholeLabel} - today it's ${fmt(latestShare)}%, a ${dir} slice than before.`;
 }
@@ -264,9 +249,11 @@ function mayoralSpanText(pts) {
  * fiscal-year-to-mayor mapping in src/content/mayors.js. Only fires when
  * the department's own history actually spans a mayoral transition; a
  * department whose recorded years all fall under one mayor has nothing to
- * compare yet.
+ * compare yet. Returns a structured result (used to build the Mayor's
+ * Corner ranking) rather than just a sentence, so callers can sort by
+ * diffPct to surface the departments that shifted priority the most.
  */
-function describeMayoralComparison(history) {
+function computeMayoralComparison(history) {
   const points = (history || [])
     .filter((h) => h.value !== null && h.value !== undefined && mayorByFiscalYear[h.fiscalYear])
     .map((h) => ({ fiscalYear: h.fiscalYear, value: h.value, mayor: mayorByFiscalYear[h.fiscalYear] }))
@@ -296,21 +283,32 @@ function describeMayoralComparison(history) {
 
   const diffPct = ((currentAvg - previousAvg) / Math.abs(previousAvg)) * 100;
   const absPct = Math.abs(diffPct);
+  const currentSpan = mayoralSpanText(currentPts);
+  const previousSpan = mayoralSpanText(previousPts);
   const currentAmountPhrase =
     currentPts.length === 1 ? formatMoney(currentPts[0].value) : `an average of ${formatMoney(currentAvg)} a year`;
   const previousAmountPhrase = `an average of ${formatMoney(previousAvg)} a year`;
 
+  let sentence;
   if (absPct < 1) {
-    return `Mayor ${currentMayor} has kept this at almost exactly what Mayor ${previousMayor} did: ${currentAmountPhrase} over ${mayoralSpanText(
-      currentPts
-    )}, versus ${previousAmountPhrase} under Mayor ${previousMayor} over ${mayoralSpanText(previousPts)}.`;
+    sentence = `Mayor ${currentMayor} has kept this at almost exactly what Mayor ${previousMayor} did: ${currentAmountPhrase} over ${currentSpan}, versus ${previousAmountPhrase} under Mayor ${previousMayor} over ${previousSpan}.`;
+  } else {
+    const dir = diffPct > 0 ? "more" : "less";
+    sentence = `Since taking office, Mayor ${currentMayor} has set this at ${currentAmountPhrase} over ${currentSpan} - about ${Math.round(
+      absPct
+    )}% ${dir} than Mayor ${previousMayor} set it at (${previousAmountPhrase} over ${previousSpan}).`;
   }
-  const dir = diffPct > 0 ? "more" : "less";
-  return `Since taking office, Mayor ${currentMayor} has budgeted ${currentAmountPhrase} for this over ${mayoralSpanText(
-    currentPts
-  )} - about ${Math.round(absPct)}% ${dir} than Mayor ${previousMayor} budgeted (${previousAmountPhrase} over ${mayoralSpanText(
-    previousPts
-  )}).`;
+
+  return {
+    sentence,
+    currentMayor,
+    previousMayor,
+    currentAvg,
+    previousAvg,
+    diffPct,
+    currentSpan,
+    previousSpan,
+  };
 }
 
 /**
@@ -366,23 +364,14 @@ export default function () {
             };
           });
           let trend = describeTrend(history);
-          const share = describeShareOfWhole(history, totalBudgetHistory, "the total city budget");
+          const share = describeShareOfWhole(history, totalBudgetHistory, "the total city budget", true);
           if (share) trend = trend ? `${trend} ${share}` : share;
-          let mayoralCitation = null;
-          if (content.mayoralDiscretion) {
-            const mayoral = describeMayoralComparison(history);
-            if (mayoral) {
-              trend = trend ? `${trend} ${mayoral}` : mayoral;
-              mayoralCitation = mayoralSource;
-            }
-          }
           return {
             slug,
             name: d.name,
             value: d.values[latest.expenditures.adoptedColumnIndex],
             history,
             trend,
-            mayoralCitation,
             ...content,
           };
         })
@@ -441,6 +430,8 @@ export default function () {
       seenSlugs.set(slug, seen + 1);
       if (seen > 0) slug = `${slug}-${seen + 1}`;
 
+      const itemContent = revenueLineItemContent[slug] || {};
+
       const history = revenueCategoriesByYear.map((y) => {
         const yCat = y.categories.find((c) => c.slug === cat.slug);
         const match = yCat?.lineItems.find((x) => x.label.toLowerCase() === li.label.toLowerCase());
@@ -455,6 +446,7 @@ export default function () {
       const categoryLabel = content.label || cat.label;
       const share = describeShareOfWhole(history, catHistory, categoryLabel);
       if (share) trend = trend ? `${trend} ${share}` : share;
+      const mayoralComparison = itemContent.mayoralDiscretion ? computeMayoralComparison(history) : null;
 
       return {
         slug,
@@ -464,7 +456,9 @@ export default function () {
         value: li.values[adoptedColumnIndex],
         history,
         trend,
-        ...(revenueLineItemContent[slug] || {}),
+        mayoralComparison,
+        mayoralCitation: mayoralComparison ? mayoralSource : null,
+        ...itemContent,
       };
     });
 

@@ -7,6 +7,19 @@
  * PDF (see src/_data/budgets.js). Entries are optional: a line item with
  * no entry here still gets its own page (trend chart + table), just
  * without the "blurb"/"rate" prose sections.
+ *
+ * "mayoralDiscretion: true" marks line items that reflect an actual annual
+ * budget choice the Mayor makes, not just organic collections or a state
+ * formula - confirmed against the already-verified "who controls it" text
+ * in revenue-categories.js. "Add: 2 1/2%" is the clearest case: state law
+ * caps it, but how much of that allowed increase to actually take is a
+ * real annual call. The local fee lines (trash, licenses/permits, cemetery,
+ * rentals, general fees/charges) are locally set by the city rather than
+ * state-fixed. Left off: the local-option excise taxes (meals, rooms,
+ * marijuana) since those rates are set once by City Council ordinance
+ * rather than chosen fresh in each year's budget, anything state-formula
+ * driven, and anything that's really a volume/market outcome rather than a
+ * number the city sets (fines, investment income, reimbursements).
  */
 export const revenueLineItemContent = {
   // --- Taxation ---
@@ -19,6 +32,7 @@ export const revenueLineItemContent = {
     blurb:
       "State law lets the city add 2.5% more property tax than last year, automatically, every single year - whether or not costs actually went up that much.",
     citation: { label: "M.G.L. c. 59, § 21C (Proposition 2½)", url: "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIX/Chapter59/Section21C" },
+    mayoralDiscretion: true,
   },
   "add-new-growth": {
     blurb:
@@ -157,24 +171,30 @@ export const revenueLineItemContent = {
   },
   "charges-for-services-trash": {
     blurb: "Fees the city charges for trash and recycling pickup.",
+    mayoralDiscretion: true,
   },
   "other-charges-for-services": {
     blurb: "Smaller fees for city services that don't have their own line item.",
+    mayoralDiscretion: true,
   },
   fees: {
     blurb: "General fees the city charges that don't fit neatly into any other category on this list.",
+    mayoralDiscretion: true,
   },
   rentals: {
     blurb: "Rent the city collects from renting out city-owned buildings or property.",
+    mayoralDiscretion: true,
   },
   "department-revenues-cemetery": {
     blurb: "Money collected for burial plots and related services at the city's cemeteries.",
+    mayoralDiscretion: true,
   },
   "other-department-revenues": {
     blurb: "Smaller amounts of money individual city departments bring in through their day-to-day work.",
   },
   "licenses-and-permits": {
     blurb: "Fees for the various licenses and permits the city issues - things like business licenses and building permits.",
+    mayoralDiscretion: true,
   },
   "fines-and-forfeitures": {
     blurb: "Money collected from parking tickets and other fines for breaking city rules.",

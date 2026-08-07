@@ -31,6 +31,14 @@ usesChart: true
 <p class="source-note">Computed from each fiscal year's own revenue recap figures below - see <a href="/methodology/">Methodology</a>.</p>
 {% endif %}
 
+{% if item.mayoralComparison %}
+<div class="clipping">
+  <strong>Mayor's Corner</strong>
+  <p>{{ item.mayoralComparison.sentence }}</p>
+  <p class="source-note">Mayor identified from <a href="{{ item.mayoralCitation.url }}">{{ item.mayoralCitation.label }}</a>.</p>
+</div>
+{% endif %}
+
 {% if item.historicalNote %}
 <div class="clipping">
   <strong>Backstory</strong>
