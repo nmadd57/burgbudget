@@ -6,10 +6,18 @@ title: Methodology
 <p class="byline">Data sources, extraction method, and known limitations</p>
 
 <p class="lede">
-  Nothing on this site is entered by hand. A scheduled program re-reads the City of Fitchburg's own published
-  documents, extracts the numbers, checks them against each other, and rebuilds every page. This is what it does
-  and where it can go wrong.
+  Every dollar figure on this site is machine-extracted, never entered by hand. A scheduled program re-reads the
+  City of Fitchburg's own published documents, extracts the numbers, checks them against each other, and rebuilds
+  every page. This is what it does and where it can go wrong.
 </p>
+
+<div class="notice">
+  The <em>explanatory</em> text on the revenue category pages (what each category is, where it comes from, who
+  controls it, and applicable tax rates) is the one part of this site that's hand-written rather than scraped —
+  state statute and municipal-finance structure don't change often enough to be worth automating, and the source
+  is cited at the bottom of each page. Every dollar figure alongside that text is still pulled from the budget
+  PDF at build time, same as everywhere else.
+</div>
 
 <h2 class="section-head">Data Sources</h2>
 <div class="columns">

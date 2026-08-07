@@ -21,6 +21,18 @@ usesChart: true
   <script type="application/json" id="rev-trend-data">{{ budgets.charts.revenueTrend | dump | safe }}</script>
 </div>
 
+<h2 class="section-head">By Category</h2>
+<p>What each category is, where it comes from, who controls it, and any tax rates or fees that apply.</p>
+<div class="columns">
+{% for cat in budgets.revenueCategories %}
+  <div class="clipping">
+    <strong><a href="/revenue/{{ cat.slug }}/">{{ cat.label }}</a></strong>
+    — {{ cat.total | money }}{% if cat.shareOfRevenue %} ({{ (cat.shareOfRevenue * 100) | round(1) }}%){% endif %}
+    {% if cat.whatItIs %}<p>{{ cat.whatItIs }}</p>{% endif %}
+  </div>
+{% endfor %}
+</div>
+
 <h2 class="section-head">Full Revenue Recap, FY{{ budgets.latestRevenue.fiscalYear }}</h2>
 <table>
   <caption>Source: {{ budgets.latestRevenue.source.title }} — <a href="{{ budgets.latestRevenue.source.url }}">view PDF</a></caption>

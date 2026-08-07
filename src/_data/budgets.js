@@ -1,7 +1,37 @@
 import fs from "fs";
 import path from "path";
+import { revenueCategoryContent } from "../content/revenue-categories.js";
 
 const file = path.join(process.cwd(), "data", "fitchburg", "budgets.json");
+
+function slugify(label) {
+  return label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Fitchburg's revenue recap has no explicit category tag per line - the
+ * category boundary is implicit: every line item up to and including a
+ * category-level subtotal (an all-caps "SUB TOTAL - X" row) belongs to
+ * that category, matching how the row order literally prints in the PDF.
+ */
+function groupRevenueByCategory(lineItems) {
+  const categories = [];
+  let current = [];
+  for (const item of lineItems) {
+    if (item.isSubtotal) {
+      if (/^total\s+operating/i.test(item.label)) break; // grand total ends the table
+      const label = item.label.replace(/^sub\s?total\s*-?\s*/i, "").trim();
+      categories.push({ slug: slugify(label), label, total: item, lineItems: current });
+      current = [];
+    } else {
+      current.push(item);
+    }
+  }
+  return categories;
+}
 
 export default function () {
   if (!fs.existsSync(file)) {
@@ -49,11 +79,45 @@ export default function () {
     };
   });
 
-  const revenueBreakdown = latestRevenue
-    ? latestRevenue.revenue.lineItems
-        .filter((li) => li.isSubtotal && !/^total\s+operating/i.test(li.label))
-        .map((li) => ({ label: li.label.replace(/^sub\s?total\s*-?\s*/i, ""), value: li.values[latestRevenue.revenue.adoptedColumnIndex] }))
+  // Per-fiscal-year category groupings, oldest to newest, for building
+  // per-category history trends and the category sub-pages.
+  const revenueCategoriesByYear = revenueOk.map((b) => ({
+    fiscalYear: b.fiscalYear,
+    categories: groupRevenueByCategory(b.revenue.lineItems).map((c) => ({
+      ...c,
+      totalValue: c.total.values[b.revenue.adoptedColumnIndex],
+    })),
+  }));
+
+  const latestCategories = latestRevenue
+    ? groupRevenueByCategory(latestRevenue.revenue.lineItems)
     : [];
+
+  const grandTotalRevenue = latestRevenue
+    ? latestRevenue.revenue.lineItems.find((li) => /^total\s+operating/i.test(li.label))
+        ?.values[latestRevenue.revenue.adoptedColumnIndex]
+    : null;
+
+  const revenueCategories = latestCategories.map((cat) => {
+    const history = revenueCategoriesByYear.map((y) => {
+      const match = y.categories.find((c) => c.slug === cat.slug);
+      return { fiscalYear: y.fiscalYear, value: match ? match.totalValue : null };
+    });
+    const content = revenueCategoryContent[cat.slug] || {};
+    const adoptedColumnIndex = latestRevenue.revenue.adoptedColumnIndex;
+    const total = cat.total.values[adoptedColumnIndex];
+    return {
+      slug: cat.slug,
+      label: cat.label,
+      total,
+      lineItems: cat.lineItems.map((li) => ({ label: li.label, value: li.values[adoptedColumnIndex] })),
+      history,
+      shareOfRevenue: grandTotalRevenue ? total / grandTotalRevenue : null,
+      ...content,
+    };
+  });
+
+  const revenueBreakdown = revenueCategories.map((c) => ({ label: c.label, value: c.total }));
 
   const charts = {
     departmentBar: {
@@ -86,6 +150,7 @@ export default function () {
     latestRevenue,
     revenueTrend,
     revenueBreakdown,
+    revenueCategories,
     charts,
   };
 }

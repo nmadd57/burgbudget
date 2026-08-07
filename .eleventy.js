@@ -1,3 +1,7 @@
+import MarkdownIt from "markdown-it";
+
+const md = new MarkdownIt({ html: false, linkify: false });
+
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy({ "node_modules/chart.js/dist/chart.umd.js": "assets/js/vendor/chart.umd.js" });
@@ -25,6 +29,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("take", (arr, n) => (Array.isArray(arr) ? arr.slice(0, n) : arr));
   eleventyConfig.addFilter("pluck", (arr, key) => (Array.isArray(arr) ? arr.map((x) => x[key]) : arr));
+
+  eleventyConfig.addFilter("md", (value) => (value ? md.renderInline(String(value)) : ""));
 
   eleventyConfig.addFilter("dateline", (iso) => {
     if (!iso) return "";

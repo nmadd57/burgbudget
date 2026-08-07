@@ -1,0 +1,62 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: budgets.revenueCategories
+  size: 1
+  alias: category
+permalink: "/revenue/{{ category.slug }}/"
+eleventyComputed:
+  title: "{{ category.label }}"
+usesChart: true
+---
+<h2 class="headline">{{ category.label }}</h2>
+<p class="byline">
+  {{ category.total | money }} in FY{{ budgets.latestRevenue.fiscalYear }}
+  {% if category.shareOfRevenue %}&middot; {{ (category.shareOfRevenue * 100) | round(1) }}% of total operating revenue{% endif %}
+</p>
+
+{% if category.whatItIs %}
+<p class="lede">{{ category.whatItIs }}</p>
+{% endif %}
+
+<div class="chart-box">
+  <canvas id="cat-trend" data-chart="line" height="90"></canvas>
+  <script type="application/json" id="cat-trend-data">
+    {{ { labels: category.history | pluck("fiscalYear"), series: [ { label: category.label, values: category.history | pluck("value") } ] } | dump | safe }}
+  </script>
+</div>
+
+<h2 class="section-head">Line Items, FY{{ budgets.latestRevenue.fiscalYear }}</h2>
+<table>
+  <caption>Source: {{ budgets.latestRevenue.source.title }} &mdash; <a href="{{ budgets.latestRevenue.source.url }}">view PDF</a></caption>
+  <thead>
+    <tr><th>Line item</th><th>FY{{ budgets.latestRevenue.fiscalYear }}</th></tr>
+  </thead>
+  <tbody>
+    {% for item in category.lineItems %}
+    <tr><td>{{ item.label }}</td><td>{{ item.value | money }}</td></tr>
+    {% endfor %}
+    <tr class="total-row"><td>{{ category.label }}, Total</td><td>{{ category.total | money }}</td></tr>
+  </tbody>
+</table>
+
+{% if category.whereItComesFrom %}
+<h2 class="section-head">Where It Comes From</h2>
+<p>{{ category.whereItComesFrom | md | safe }}</p>
+{% endif %}
+
+{% if category.whoControlsIt %}
+<h2 class="section-head">Who Controls It</h2>
+<p>{{ category.whoControlsIt | md | safe }}</p>
+{% endif %}
+
+{% if category.rates %}
+<h2 class="section-head">Rates &amp; Fees</h2>
+<p>{{ category.rates | md | safe }}</p>
+{% endif %}
+
+{% if category.sourceUrl %}
+<p class="source-note">Background: <a href="{{ category.sourceUrl }}">{{ category.sourceLabel }}</a></p>
+{% endif %}
+
+<p><a href="/revenue/">&larr; Back to Where the Money Comes From</a></p>
