@@ -1,205 +1,194 @@
 /**
- * Short, hand-written explanations for individual revenue line items -
- * one level more granular than ../content/revenue-categories.js. Keyed by
- * the slug slugify() produces from the line item's exact label in the
- * budget PDF (see src/_data/budgets.js). Entries are optional: a line
- * item with no entry here still gets its own page (trend chart + table),
- * just without the "blurb"/"rate" prose sections.
+ * Short, plain-language explanations for individual revenue line items -
+ * one level more granular than ../content/revenue-categories.js. Written
+ * for a general reader, not a finance professional: short sentences,
+ * everyday words, no unexplained jargon or legal citations. Keyed by the
+ * slug slugify() produces from the line item's exact label in the budget
+ * PDF (see src/_data/budgets.js). Entries are optional: a line item with
+ * no entry here still gets its own page (trend chart + table), just
+ * without the "blurb"/"rate" prose sections.
  */
 export const revenueLineItemContent = {
   // --- Taxation ---
   "prior-year-s-levy-limit": {
     blurb:
-      "The prior fiscal year's levy limit - the base Proposition 2½ starts from each year before applying the automatic 2.5% increase and new growth.",
+      "This is where the math starts: how much property tax the city was allowed to collect last year, before this year's increase gets added on.",
   },
   "add-2-1-2": {
     blurb:
-      "The automatic 2.5% increase Proposition 2½ allows every community to add to its levy limit each year, regardless of inflation or actual spending needs.",
+      "State law lets the city add 2.5% more property tax than last year, automatically, every single year - whether or not costs actually went up that much.",
   },
   "add-new-growth": {
     blurb:
-      "The added tax capacity from new construction, subdivisions, renovations, and other additions to the tax base since last year - the one part of the levy limit increase that reflects real growth in the city rather than an automatic statutory allowance.",
+      "When new houses get built, old buildings get renovated, or a new business opens up, that adds new property to tax. This is the extra tax money that comes from those new additions to the city - separate from the automatic 2.5% bump.",
   },
   "subtotal-levy-limit": {
     blurb:
-      "The running subtotal of the levy limit calculation (prior year's limit, plus the automatic 2.5%, plus new growth) before abatement reserves are subtracted.",
+      "Add up the three lines above (last year's limit, the automatic 2.5%, and new construction) and this is the running total - the most property tax the city is allowed to collect this year, before a couple of small adjustments.",
   },
   "actual-levy-adjusted-for-rounding": {
-    blurb:
-      "The levy limit figure actually certified by the Department of Revenue, adjusted for the small rounding differences that accumulate in the levy-limit math over time.",
+    blurb: "The same number as above, just cleaned up for small rounding differences before the state signs off on it.",
   },
   "less-reserve-for-abatements": {
     blurb:
-      "An amount set aside (the \"overlay\") to cover tax abatements the Board of Assessors is expected to grant during the year - for successful appeals, exemptions, and correction of errors - so the city doesn't over-collect against its levy limit.",
+      "The city sets aside some money every year expecting that a number of homeowners will successfully challenge their property tax bill and get a refund. This line is that set-aside, subtracted up front so the city doesn't over-collect.",
   },
 
   // --- State Aid: Education ---
   "education-chapter-70": {
-    blurb:
-      "The city's Chapter 70 education aid - see the State Aid — Education category page for how the formula works.",
+    blurb: "The state's main check to help pay for Fitchburg's public schools. See the State Aid — Education page above for how it's calculated.",
   },
   "education-charter-tuition-reimbursements": {
     blurb:
-      "Partial, phased state reimbursement for tuition Fitchburg pays when a resident student attends a Massachusetts charter school instead of the Fitchburg Public Schools.",
+      "When a Fitchburg kid goes to a charter school instead, the city has to pay that school tuition. This is the state paying some of that money back to Fitchburg - though usually not all of it.",
   },
   "education-school-choice-receiving-tuition": {
     blurb:
-      "Tuition Fitchburg Public Schools receives from other municipalities for non-resident students who choose to enroll here under the state's School Choice program.",
+      "Some kids from other towns choose to attend Fitchburg's public schools instead of their own. Their home town has to pay Fitchburg tuition for that, and this is that payment coming in.",
   },
   "less-offset": {
     blurb:
-      "An accounting offset that nets a corresponding charge elsewhere on the cherry sheet against this aid line, so the same dollars aren't counted as revenue twice.",
+      "A bookkeeping line that cancels out a matching charge somewhere else on this list, so the same money doesn't get counted twice.",
   },
 
   // --- State Aid: General Government ---
   "general-unrestricted-general-government-aid": {
-    blurb:
-      "Unrestricted General Government Aid (UGGA) - the state's main no-strings-attached local aid program, usable for any municipal purpose.",
+    blurb: "General state aid the city can spend on anything it wants - police, fire, roads, whatever the City Council decides.",
   },
   "general-veterans-benefits": {
     blurb:
-      "State reimbursement (typically 75%) of benefits Fitchburg pays to eligible needy veterans and their dependents under the state's Chapter 115 veterans' benefits program.",
+      "Fitchburg helps pay living expenses for veterans in financial need. The state pays back most of what the city spends on this (typically about three-quarters of it).",
   },
   "exemptions-vets-blind-surviving-spouse-elderly": {
     blurb:
-      "State reimbursement for a share of the statutory property-tax exemptions Fitchburg is required to grant to qualifying veterans, blind residents, surviving spouses, and low-income elderly homeowners.",
+      "State law requires the city to knock money off the property tax bills of certain veterans, blind residents, surviving spouses, and low-income seniors. This is the state chipping in to help cover that lost tax revenue.",
   },
   "general-state-owned-land": {
     blurb:
-      "A small per-acre payment the state makes to municipalities in place of property tax on state-owned land within their borders, since that land is otherwise tax-exempt.",
+      "The state owns some land in Fitchburg, and normally that land would be tax-exempt. Instead, the state sends the city a small payment to make up for the property tax it isn't collecting on that land.",
   },
   "general-public-libraries": {
-    blurb:
-      "State aid to the Fitchburg Public Library, conditioned on the library meeting minimum local funding and service standards set by the Massachusetts Board of Library Commissioners.",
+    blurb: "State money to help run the Fitchburg Public Library, as long as the city keeps funding the library at a minimum level the state requires.",
   },
   "less-offset-public-library": {
-    blurb:
-      "An accounting offset netting a corresponding charge against the public libraries aid line above.",
+    blurb: "A bookkeeping line that cancels out part of the library aid line above, so it isn't double-counted.",
   },
 
   // --- State Assessments ---
   "assessment-mosquito-control-projects": {
     blurb:
-      "Fitchburg's assessed share of the cost of its regional mosquito control district's operations (surveillance, larviciding, and spraying), billed to every member municipality on the cherry sheet.",
+      "Fitchburg is part of a regional program that sprays for mosquitoes and checks for diseases they can carry. This is the city's share of the bill, split among all the towns in the program.",
   },
   "assessment-air-pollution-districts": {
     blurb:
-      "Fitchburg's assessed share of the cost of the regional air pollution control district it belongs to, one of several such districts statewide that share environmental monitoring and enforcement costs among member communities.",
+      "Fitchburg belongs to a regional group that monitors and manages air quality. This is the city's share of what that group costs to run.",
   },
   "assessment-rmv-non-renewal-surcharge": {
     blurb:
-      "A per-use charge for the Registry of Motor Vehicles' service that blocks license and registration renewals for residents with unpaid excise tax bills - a collection tool cities and towns opt into, billed back on a per-use basis.",
+      "If you owe unpaid car excise tax, the city can ask the state's Registry of Motor Vehicles to block you from renewing your license or registration until you pay up. This is a fee the city pays the state each time it uses that tool.",
   },
   "assessment-regional-transit": {
-    blurb:
-      "Fitchburg's required contribution to the Montachusett Regional Transit Authority (MART), the regional public bus system serving the city and surrounding communities.",
+    blurb: "Fitchburg's yearly payment to help fund MART, the regional bus system that serves the city and surrounding towns.",
   },
   "assessment-special-education": {
-    blurb:
-      "Fitchburg's assessed share of certain state-administered special education program costs, billed back to sending districts on the cherry sheet.",
+    blurb: "Fitchburg's share of certain special education costs that the state manages and then bills back to the district.",
   },
   "assessment-school-choice-sending-tuition": {
     blurb:
-      "Tuition Fitchburg pays to other districts for resident students who choose to attend school elsewhere under the state's School Choice program - the mirror image of the School Choice tuition Fitchburg receives.",
+      "When a Fitchburg kid chooses to attend public school in a different town instead, Fitchburg has to pay that other town tuition. This is that payment going out - the flip side of the tuition Fitchburg receives from other towns' kids.",
   },
   "assessment-charter-school-sending-tuition": {
     blurb:
-      "Tuition Fitchburg pays for each resident student who attends a Massachusetts charter school instead of the Fitchburg Public Schools - the city's largest single cherry sheet assessment, only partially offset by charter tuition reimbursement.",
+      "When a Fitchburg kid attends a charter school instead of a Fitchburg public school, the city has to pay that charter school tuition. This is the single biggest bill on the whole assessments list, and the state only pays back part of it (see the reimbursement line under State Aid — Education).",
   },
 
   // --- Local Receipts ---
   "motor-vehicle-excise": {
-    blurb: "See the Local Receipts category page for the statewide excise rate and how it's calculated.",
+    blurb: "The yearly tax on every car and truck registered in Fitchburg. See the Local Receipts page above for the exact rate.",
   },
   "other-excise-rooms": {
-    blurb:
-      "The local-option room occupancy excise on hotel, motel, and short-term-rental stays in Fitchburg, on top of the state's own room occupancy excise.",
+    blurb: "An extra charge added to your bill when you stay at a hotel or motel in Fitchburg, on top of what the state already charges.",
   },
   "other-excise-meals": {
-    blurb:
-      "The local-option 0.75% excise on restaurant meals sold in Fitchburg, collected alongside the state's 6.25% meals sales tax.",
+    blurb: "An extra charge added to your bill when you eat at a restaurant in Fitchburg, on top of the state's own meals tax.",
   },
   "other-excise-cannabis": {
-    blurb:
-      "The local-option excise on retail sales of recreational marijuana by cannabis businesses located in Fitchburg.",
+    blurb: "An extra charge added when you buy legal marijuana from a shop in Fitchburg, on top of state taxes.",
   },
   "penalties-interest-on-taxes": {
-    blurb: "Interest and penalty charges on property tax and excise bills paid after their due date.",
+    blurb: "Late fees and interest charged to people who pay their property tax or car excise bill after the due date.",
   },
   "payments-in-lieu-of-taxes": {
     blurb:
-      "\"PILOT\" payments - voluntary or negotiated payments from tax-exempt property owners (universities, hospitals, housing authorities, and similar institutions) that don't otherwise pay property tax.",
+      "Some organizations in Fitchburg - like colleges, hospitals, or housing authorities - don't have to pay property tax. Some of them make a voluntary payment to the city anyway, and this is that money.",
   },
   "charges-for-services-trash": {
-    blurb:
-      "Fees charged for residential trash and recycling collection and disposal, set by the Department of Public Works' fee schedule.",
+    blurb: "Fees the city charges for trash and recycling pickup.",
   },
   "other-charges-for-services": {
-    blurb: "Miscellaneous fees for city services not broken out into their own line item.",
+    blurb: "Smaller fees for city services that don't have their own line item.",
   },
   fees: {
-    blurb: "General municipal fees not captured elsewhere on the recap, set by local ordinance or department fee schedules.",
+    blurb: "General fees the city charges that don't fit neatly into any other category on this list.",
   },
   rentals: {
-    blurb: "Rental income from city-owned property and facilities.",
+    blurb: "Rent the city collects from renting out city-owned buildings or property.",
   },
   "department-revenues-cemetery": {
-    blurb: "Fees for burial lots, interments, and related services at the city's municipal cemeteries.",
+    blurb: "Money collected for burial plots and related services at the city's cemeteries.",
   },
   "other-department-revenues": {
-    blurb: "Miscellaneous revenue generated by individual city departments in the course of their operations.",
+    blurb: "Smaller amounts of money individual city departments bring in through their day-to-day work.",
   },
   "licenses-and-permits": {
-    blurb:
-      "Fees for the many local licenses and permits the city issues - business licenses, building and trade permits, and similar - set by ordinance and the relevant department's fee schedule.",
+    blurb: "Fees for the various licenses and permits the city issues - things like business licenses and building permits.",
   },
   "fines-and-forfeitures": {
-    blurb: "Revenue from fines, including parking tickets and other municipal code violations.",
+    blurb: "Money collected from parking tickets and other fines for breaking city rules.",
   },
   "investment-income": {
-    blurb: "Interest earned on the city's cash balances and short-term investments, which rises and falls with prevailing interest rates.",
+    blurb: "Interest the city earns by keeping its cash in interest-bearing accounts, similar to interest on a savings account. Goes up and down with interest rates.",
   },
   "reimbursement-for-related-exp-cdbg": {
     blurb:
-      "Reimbursement of eligible administrative costs from the city's federal Community Development Block Grant (CDBG) allocation, a HUD program for housing and community development activities.",
+      "Fitchburg gets a federal grant (called CDBG) for housing and neighborhood improvement projects. This is the city getting paid back for the staff time it spends running that grant program.",
   },
   "reimbursement-for-related-exp-airport": {
-    blurb: "Reimbursement to the General Fund for costs it fronts on behalf of the Fitchburg Municipal Airport enterprise operation.",
+    blurb: "The city fronts some costs for running the Fitchburg Municipal Airport, and this is that money being paid back to the general city budget.",
   },
   "medicaid-reimbursement": {
-    blurb:
-      "Federal/state Medicaid reimbursement for eligible health-related services the school district and other city departments provide, primarily through the School-Based Medicaid program.",
+    blurb: "Money back from Medicaid for certain health services the school district and other city departments provide to eligible students and residents.",
   },
   "other-state-revenue-recurring": {
-    blurb: "Smaller, recurring state revenue sources that don't warrant their own line item.",
+    blurb: "Smaller amounts of regular state funding that don't have their own line item.",
   },
 
   // --- Non-Recurring Revenue ---
   "fire-ambulance-service-fees": {
-    blurb: "Fees billed to patients and their insurers for Fire Department ambulance transports, per the department's fee schedule.",
+    blurb: "Bills sent to patients and their insurance companies when the Fire Department responds to a medical emergency and provides ambulance transport.",
   },
   "reimbursement-from-monty-tech-sro": {
     blurb:
-      "Reimbursement from Montachusett Regional Vocational Technical School (Monty Tech) for its share of the cost of a shared School Resource Officer, under an interlocal agreement between the two governments.",
+      "Fitchburg and Monty Tech (the regional vocational school) share the cost of a police officer stationed at the school. This is Monty Tech paying its share to Fitchburg.",
   },
   "reimbursement-for-fringes-grants": {
     blurb:
-      "Reimbursement of employee fringe-benefit costs (health insurance, retirement contributions, etc.) for staff time charged to federal and state grants, per each grant's own terms.",
+      "When city employees spend time working on a federal or state grant, part of their benefits cost (health insurance, retirement, etc.) can be charged to that grant. This is that money coming back to the city.",
   },
 
   // --- Other Revenue Sources ---
   "reimbursement-for-related-exp-water": {
-    blurb: "Reimbursement from the Water enterprise fund for its share of costs (billing, IT, administration) the General Fund pays on its behalf.",
+    blurb: "The Water Department (funded by your water bill) pays the general city budget back for its share of shared costs like billing and IT support.",
   },
   "reimbursement-for-related-exp-sewer": {
-    blurb: "Reimbursement from the Wastewater/Sewer enterprise fund for its share of costs the General Fund pays on its behalf.",
+    blurb: "The Sewer Department (funded by your sewer bill) pays the general city budget back for its share of shared costs like billing and IT support.",
   },
   "overlay-surplus": {
     blurb:
-      "Money released from the property-tax abatement reserve (the \"overlay\") once a given year's abatements are settled and a surplus remains, voted by the Board of Assessors.",
+      "Remember the money the city sets aside every year in case people win property tax appeals? Once a given year's appeals are settled, whatever's left over in that account gets freed up, and this is that leftover money.",
   },
   "available-funds-transfers-one-time": {
     blurb:
-      "One-time transfers into the operating budget, predominantly \"free cash\" - the portion of the prior year's actual revenue and unspent appropriations left over once the books close, which must be certified by the Department of Revenue before the City Council can appropriate it.",
+      "Mostly \"free cash\" - money left over from last year that wasn't spent, plus revenue that came in higher than expected. The state has to double-check the city's books first, and then the City Council can vote to spend it.",
   },
 };
