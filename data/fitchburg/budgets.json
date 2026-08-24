@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T08:45:33.218Z",
+  "generatedAt": "2026-08-24T08:50:38.381Z",
   "budgets": [
     {
       "fiscalYear": 2016,
@@ -9,7 +9,7 @@
         "fiscalYear": 2016,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/399",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=399",
-        "retrievedAt": "2026-08-17T08:45:33.205Z"
+        "retrievedAt": "2026-08-24T08:50:38.360Z"
       },
       "expenditures": {
         "status": "ok",
@@ -220,7 +220,7 @@
         "fiscalYear": 2017,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/451",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=451",
-        "retrievedAt": "2026-08-17T08:45:32.228Z"
+        "retrievedAt": "2026-08-24T08:50:36.691Z"
       },
       "expenditures": {
         "status": "ok",
@@ -1250,7 +1250,7 @@
         "fiscalYear": 2018,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/634",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=634",
-        "retrievedAt": "2026-08-17T08:45:31.721Z"
+        "retrievedAt": "2026-08-24T08:50:35.891Z"
       },
       "expenditures": {
         "status": "ok",
@@ -2280,7 +2280,7 @@
         "fiscalYear": 2019,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/675",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=675",
-        "retrievedAt": "2026-08-17T08:45:31.238Z"
+        "retrievedAt": "2026-08-24T08:50:35.148Z"
       },
       "expenditures": {
         "status": "ok",
@@ -3309,7 +3309,7 @@
         "fiscalYear": 2020,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/904",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=904",
-        "retrievedAt": "2026-08-17T08:45:30.765Z"
+        "retrievedAt": "2026-08-24T08:50:34.227Z"
       },
       "expenditures": {
         "status": "ok",
@@ -4451,7 +4451,7 @@
         "fiscalYear": 2021,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/983",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=983",
-        "retrievedAt": "2026-08-17T08:45:30.114Z"
+        "retrievedAt": "2026-08-24T08:50:33.358Z"
       },
       "expenditures": {
         "status": "ok",
@@ -5588,7 +5588,7 @@
         "fiscalYear": 2022,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/984",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=984",
-        "retrievedAt": "2026-08-17T08:45:29.424Z"
+        "retrievedAt": "2026-08-24T08:50:32.504Z"
       },
       "expenditures": {
         "status": "ok",
@@ -6739,7 +6739,7 @@
         "fiscalYear": 2023,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1188",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1188",
-        "retrievedAt": "2026-08-17T08:45:28.800Z"
+        "retrievedAt": "2026-08-24T08:50:31.640Z"
       },
       "expenditures": {
         "status": "ok",
@@ -7856,7 +7856,7 @@
         "fiscalYear": 2024,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1189",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1189",
-        "retrievedAt": "2026-08-17T08:45:28.215Z"
+        "retrievedAt": "2026-08-24T08:50:30.721Z"
       },
       "expenditures": {
         "status": "ok",
@@ -8973,7 +8973,7 @@
         "fiscalYear": 2025,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1556",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1556",
-        "retrievedAt": "2026-08-17T08:45:27.679Z"
+        "retrievedAt": "2026-08-24T08:50:29.855Z"
       },
       "expenditures": {
         "status": "ok",
@@ -10062,7 +10062,7 @@
         "fiscalYear": 2026,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1555",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1555",
-        "retrievedAt": "2026-08-17T08:45:26.931Z"
+        "retrievedAt": "2026-08-24T08:50:28.651Z"
       },
       "expenditures": {
         "status": "ok",
