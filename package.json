@@ -14,7 +14,7 @@
     "chart.js": "^4.4.4",
     "cheerio": "^1.0.0",
     "markdown-it": "^15.0.0",
-    "pdfjs-dist": "^6.2.108"
+    "pdfjs-dist": "^6.3.289"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
