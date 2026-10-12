@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T16:54:40.257Z",
+  "generatedAt": "2026-10-12T17:30:22.396Z",
   "budgets": [
     {
       "fiscalYear": 2016,
@@ -9,7 +9,7 @@
         "fiscalYear": 2016,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/399",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=399",
-        "retrievedAt": "2026-10-05T16:54:40.241Z"
+        "retrievedAt": "2026-10-12T17:30:22.365Z"
       },
       "expenditures": {
         "status": "ok",
@@ -220,7 +220,7 @@
         "fiscalYear": 2017,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/451",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=451",
-        "retrievedAt": "2026-10-05T16:54:38.471Z"
+        "retrievedAt": "2026-10-12T17:30:20.790Z"
       },
       "expenditures": {
         "status": "ok",
@@ -1250,7 +1250,7 @@
         "fiscalYear": 2018,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/634",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=634",
-        "retrievedAt": "2026-10-05T16:54:37.122Z"
+        "retrievedAt": "2026-10-12T17:30:19.971Z"
       },
       "expenditures": {
         "status": "ok",
@@ -2280,7 +2280,7 @@
         "fiscalYear": 2019,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/675",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=675",
-        "retrievedAt": "2026-10-05T16:54:35.093Z"
+        "retrievedAt": "2026-10-12T17:30:19.142Z"
       },
       "expenditures": {
         "status": "ok",
@@ -3309,7 +3309,7 @@
         "fiscalYear": 2020,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/904",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=904",
-        "retrievedAt": "2026-10-05T16:54:33.951Z"
+        "retrievedAt": "2026-10-12T17:30:18.358Z"
       },
       "expenditures": {
         "status": "ok",
@@ -4451,7 +4451,7 @@
         "fiscalYear": 2021,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/983",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=983",
-        "retrievedAt": "2026-10-05T16:54:32.974Z"
+        "retrievedAt": "2026-10-12T17:30:17.471Z"
       },
       "expenditures": {
         "status": "ok",
@@ -5588,7 +5588,7 @@
         "fiscalYear": 2022,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/984",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=984",
-        "retrievedAt": "2026-10-05T16:54:31.770Z"
+        "retrievedAt": "2026-10-12T17:30:16.640Z"
       },
       "expenditures": {
         "status": "ok",
@@ -6739,7 +6739,7 @@
         "fiscalYear": 2023,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1188",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1188",
-        "retrievedAt": "2026-10-05T16:54:30.419Z"
+        "retrievedAt": "2026-10-12T17:30:15.559Z"
       },
       "expenditures": {
         "status": "ok",
@@ -7856,7 +7856,7 @@
         "fiscalYear": 2024,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1189",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1189",
-        "retrievedAt": "2026-10-05T16:54:27.972Z"
+        "retrievedAt": "2026-10-12T17:30:14.548Z"
       },
       "expenditures": {
         "status": "ok",
@@ -8973,7 +8973,7 @@
         "fiscalYear": 2025,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1556",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1556",
-        "retrievedAt": "2026-10-05T16:54:25.441Z"
+        "retrievedAt": "2026-10-12T17:30:13.722Z"
       },
       "expenditures": {
         "status": "ok",
@@ -10062,7 +10062,7 @@
         "fiscalYear": 2026,
         "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1555",
         "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1555",
-        "retrievedAt": "2026-10-05T16:54:24.154Z"
+        "retrievedAt": "2026-10-12T17:30:12.784Z"
       },
       "expenditures": {
         "status": "ok",
@@ -11100,6 +11100,1057 @@
               170440976,
               181515682,
               13490526
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fiscalYear": 2027,
+      "source": {
+        "id": "mayors-budget-fy2027",
+        "title": "FY 2027 Mayor's Budget (PDF)",
+        "fiscalYear": 2027,
+        "url": "https://www.fitchburgma.gov/ArchiveCenter/ViewFile/Item/1661",
+        "archivePage": "https://www.fitchburgma.gov/Archive.aspx?ADID=1661",
+        "retrievedAt": "2026-10-12T17:30:11.830Z"
+      },
+      "expenditures": {
+        "status": "ok",
+        "columns": [
+          "FY22 ACTUAL",
+          "FY23 ACTUAL",
+          "FY24 ACTUAL",
+          "FY25 ACTUAL",
+          "FY26 BUDGET",
+          "FY27 REQUESTED",
+          "FY27 MAYOR",
+          "FY27 vs FY26",
+          "MAYOR vs REQUESTED"
+        ],
+        "adoptedColumnIndex": 6,
+        "adoptedColumnLabel": "FY27 MAYOR",
+        "departments": [
+          {
+            "name": "Legislative",
+            "values": [
+              499082,
+              565336,
+              630241,
+              628075,
+              664172,
+              678878,
+              664429,
+              257,
+              -14449
+            ]
+          },
+          {
+            "name": "Executive",
+            "values": [
+              1996927,
+              976969,
+              904277,
+              888551,
+              885880,
+              1066888,
+              1066888,
+              181008,
+              0
+            ]
+          },
+          {
+            "name": "Finance & Administration",
+            "values": [
+              2338643,
+              2849000,
+              3174594,
+              3206388,
+              3128535,
+              3254774,
+              3234774,
+              106239,
+              -20000
+            ]
+          },
+          {
+            "name": "Debt Service",
+            "values": [
+              2361585,
+              2313544,
+              3445035,
+              3409319,
+              4690000,
+              4542619,
+              4542619,
+              -147381,
+              0
+            ]
+          },
+          {
+            "name": "Community Development",
+            "values": [
+              820420,
+              686114,
+              1421208,
+              612472,
+              607217,
+              636010,
+              636010,
+              28793,
+              0
+            ]
+          },
+          {
+            "name": "Facilities Maintenance",
+            "values": [
+              382189,
+              337827,
+              318845,
+              240149,
+              352245,
+              344629,
+              342629,
+              -9616,
+              -2000
+            ]
+          },
+          {
+            "name": "Police",
+            "values": [
+              9033020,
+              9456117,
+              9423536,
+              9559054,
+              9774873,
+              10772544,
+              10049132,
+              274259,
+              -723412
+            ]
+          },
+          {
+            "name": "Fire",
+            "values": [
+              9566466,
+              8962818,
+              8897276,
+              9215582,
+              9477125,
+              11602421,
+              9632925,
+              155800,
+              -1969496
+            ]
+          },
+          {
+            "name": "Building Inspectional Services",
+            "values": [
+              704865,
+              706034,
+              639400,
+              639500,
+              696785,
+              823566,
+              719943,
+              23158,
+              -103623
+            ]
+          },
+          {
+            "name": "DPW",
+            "values": [
+              7925867,
+              6750947,
+              7139422,
+              7681246,
+              6366646,
+              38799845,
+              6627805,
+              261159,
+              -32172040
+            ]
+          },
+          {
+            "name": "Board Of Health",
+            "values": [
+              805286,
+              843466,
+              768608,
+              693686,
+              761823,
+              779863,
+              761897,
+              74,
+              -17966
+            ]
+          },
+          {
+            "name": "Rubbish Removal/Collect",
+            "values": [
+              2561507,
+              2578157,
+              2315172,
+              2476467,
+              2538478,
+              2703305,
+              2693305,
+              154827,
+              -10000
+            ]
+          },
+          {
+            "name": "Human Services",
+            "values": [
+              1839462,
+              1939249,
+              2092162,
+              2153289,
+              2304211,
+              2880511,
+              2749440,
+              445229,
+              -131071
+            ]
+          },
+          {
+            "name": "Employee Benefits",
+            "values": [
+              33537221,
+              33758693,
+              37389089,
+              41581788,
+              44850836,
+              47208374,
+              47085723,
+              2234887,
+              -122651
+            ]
+          },
+          {
+            "name": "Miscellaneous Expenses",
+            "values": [
+              1334715,
+              1400176,
+              1529834,
+              1594169,
+              1739602,
+              1829802,
+              1829802,
+              90200,
+              0
+            ]
+          },
+          {
+            "name": "Transfers Out",
+            "values": [
+              947130,
+              2720000,
+              1405704,
+              675000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Montachusett Regional",
+            "values": [
+              1673538,
+              1817045,
+              1863115,
+              1985598,
+              2062859,
+              2123846,
+              2123846,
+              60987,
+              0
+            ]
+          },
+          {
+            "name": "Fitchburg Public Schools",
+            "values": [
+              66900000,
+              74750000,
+              80896430,
+              84195000,
+              90763395,
+              96200000,
+              96200000,
+              5436605,
+              0
+            ]
+          }
+        ],
+        "total": [
+          145227923,
+          153411492,
+          164253948,
+          171435333,
+          181664682,
+          226247875,
+          190961167,
+          9296485,
+          -35286708
+        ],
+        "confidence": "high",
+        "note": ""
+      },
+      "revenue": {
+        "status": "ok",
+        "columns": [
+          "FY22 RECAP",
+          "FY23 RECAP",
+          "FY24 RECAP",
+          "FY25 RECAP",
+          "FY26 RECAP",
+          "FY27 BUDGET",
+          "FY27 vs FY26"
+        ],
+        "adoptedColumnIndex": 5,
+        "adoptedColumnLabel": "FY27 BUDGET",
+        "lineItems": [
+          {
+            "label": "Prior Year's Levy Limit",
+            "isSubtotal": false,
+            "values": [
+              58053016,
+              60262734,
+              62855415,
+              65357106,
+              68626397,
+              71409473,
+              2783076
+            ]
+          },
+          {
+            "label": "Add: 2 1/2%",
+            "isSubtotal": false,
+            "values": [
+              1451325,
+              1506568,
+              1571385,
+              1633928,
+              1715660,
+              1785237,
+              69577
+            ]
+          },
+          {
+            "label": "Add: New Growth",
+            "isSubtotal": false,
+            "values": [
+              758393,
+              1094549,
+              968898,
+              1641752,
+              1067416,
+              650000,
+              -417416
+            ]
+          },
+          {
+            "label": "Subtotal - Levy Limit",
+            "isSubtotal": false,
+            "values": [
+              60262734,
+              62863851,
+              65395698,
+              68632786,
+              71409473,
+              73844710,
+              2435237
+            ]
+          },
+          {
+            "label": "Actual Levy - Adjusted for Rounding",
+            "isSubtotal": false,
+            "values": [
+              60258235,
+              62846656,
+              65387686,
+              68628236,
+              71368255,
+              73844710,
+              2476455
+            ]
+          },
+          {
+            "label": "Less: Reserve for Abatements",
+            "isSubtotal": false,
+            "values": [
+              -950000,
+              -950000,
+              -950000,
+              -950000,
+              -950000,
+              -950000,
+              0
+            ]
+          },
+          {
+            "label": "SUB TOTAL - TAXATION",
+            "isSubtotal": true,
+            "values": [
+              59308235,
+              61896656,
+              64437686,
+              67678236,
+              70418255,
+              72894710,
+              2476455
+            ]
+          },
+          {
+            "label": "Education - Chapter 70",
+            "isSubtotal": false,
+            "values": [
+              61251183,
+              68261280,
+              74728113,
+              77953093,
+              86211388,
+              92786527,
+              6575139
+            ]
+          },
+          {
+            "label": "Education - Charter Tuition Reimbursements",
+            "isSubtotal": false,
+            "values": [
+              834985,
+              1335520,
+              1428979,
+              1170417,
+              1358016,
+              1937414,
+              579398
+            ]
+          },
+          {
+            "label": "Education - School Choice Receiving Tuition",
+            "isSubtotal": false,
+            "values": [
+              1105613,
+              1283885,
+              1093024,
+              741026,
+              576781,
+              437572,
+              -139209
+            ]
+          },
+          {
+            "label": "Less: Offset",
+            "isSubtotal": false,
+            "values": [
+              -1105613,
+              -1283885,
+              -1093024,
+              -741026,
+              -576781,
+              -437572,
+              139209
+            ]
+          },
+          {
+            "label": "SUB TOTAL - STATE AID - EDUCATION",
+            "isSubtotal": true,
+            "values": [
+              62086168,
+              69596800,
+              76157092,
+              79123510,
+              87569404,
+              94723941,
+              7154537
+            ]
+          },
+          {
+            "label": "General - Unrestricted General Government Aid",
+            "isSubtotal": false,
+            "values": [
+              9379089,
+              9885560,
+              10201898,
+              10507955,
+              10623543,
+              10955344,
+              331801
+            ]
+          },
+          {
+            "label": "General - Veterans' Benefits",
+            "isSubtotal": false,
+            "values": [
+              500715,
+              432946,
+              371076,
+              394160,
+              485632,
+              484887,
+              -745
+            ]
+          },
+          {
+            "label": "Exemptions: Vets, Blind, Surviving Spouse, Elderly",
+            "isSubtotal": false,
+            "values": [
+              161129,
+              155181,
+              142162,
+              129149,
+              201579,
+              223977,
+              22398
+            ]
+          },
+          {
+            "label": "General - State Owned Land",
+            "isSubtotal": false,
+            "values": [
+              59294,
+              76109,
+              95355,
+              97642,
+              99321,
+              101758,
+              2437
+            ]
+          },
+          {
+            "label": "General - Public Libraries",
+            "isSubtotal": false,
+            "values": [
+              97748,
+              121687,
+              131028,
+              130069,
+              143944,
+              145200,
+              1256
+            ]
+          },
+          {
+            "label": "Less: Offset - Public Library",
+            "isSubtotal": false,
+            "values": [
+              -97748,
+              -121687,
+              -131028,
+              -130069,
+              -143944,
+              -145200,
+              -1256
+            ]
+          },
+          {
+            "label": "SUB TOTAL - STATE AID - GENERAL",
+            "isSubtotal": true,
+            "values": [
+              10100227,
+              10549796,
+              10810491,
+              11128906,
+              11410075,
+              11765966,
+              355891
+            ]
+          },
+          {
+            "label": "Assessment - Mosquito Control Projects",
+            "isSubtotal": false,
+            "values": [
+              -89786,
+              -92056,
+              -93270,
+              -97696,
+              -103208,
+              -105146,
+              -1938
+            ]
+          },
+          {
+            "label": "Assessment - Air Pollution Districts",
+            "isSubtotal": false,
+            "values": [
+              -9917,
+              -10255,
+              -10788,
+              -11017,
+              -11493,
+              -10897,
+              596
+            ]
+          },
+          {
+            "label": "Assessment - RMV Non-Renewal Surcharge",
+            "isSubtotal": false,
+            "values": [
+              -96800,
+              -95180,
+              -73760,
+              -92120,
+              -92120,
+              -95920,
+              -3800
+            ]
+          },
+          {
+            "label": "Assessment - Regional Transit",
+            "isSubtotal": false,
+            "values": [
+              -933130,
+              -1012295,
+              -1087503,
+              -1053014,
+              -1049628,
+              -1165843,
+              -116215
+            ]
+          },
+          {
+            "label": "Assessment - Special Education",
+            "isSubtotal": false,
+            "values": [
+              -41184,
+              -28925,
+              -6007,
+              -62231,
+              -40772,
+              -71752,
+              -30980
+            ]
+          },
+          {
+            "label": "Assessment - School Choice Sending Tuition",
+            "isSubtotal": false,
+            "values": [
+              -2540316,
+              -2563546,
+              -2501065,
+              -2512128,
+              -2888963,
+              -2810586,
+              78377
+            ]
+          },
+          {
+            "label": "Assessment - Charter School Sending Tuition",
+            "isSubtotal": false,
+            "values": [
+              -3602072,
+              -4175131,
+              -4696823,
+              -4402338,
+              -4817802,
+              -5516776,
+              -698974
+            ]
+          },
+          {
+            "label": "SUB TOTAL - STATE ASSESSMENTS",
+            "isSubtotal": true,
+            "values": [
+              -7313205,
+              -7977388,
+              -8469216,
+              -8230544,
+              -9003986,
+              -9776920,
+              -772934
+            ]
+          },
+          {
+            "label": "Motor Vehicle Excise",
+            "isSubtotal": false,
+            "values": [
+              3734794,
+              3904898,
+              4351354,
+              4362095,
+              4521181,
+              4699003,
+              177822
+            ]
+          },
+          {
+            "label": "Other Excise - Rooms",
+            "isSubtotal": false,
+            "values": [
+              0,
+              900000,
+              1100000,
+              1100000,
+              1265000,
+              1300000,
+              35000
+            ]
+          },
+          {
+            "label": "Other Excise - Meals",
+            "isSubtotal": false,
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              370000,
+              370000,
+              0
+            ]
+          },
+          {
+            "label": "Other Excise - Cannabis",
+            "isSubtotal": false,
+            "values": [
+              200000,
+              545000,
+              550000,
+              550000,
+              400000,
+              450000,
+              50000
+            ]
+          },
+          {
+            "label": "Penalties/Interest on Taxes",
+            "isSubtotal": false,
+            "values": [
+              700000,
+              700000,
+              700000,
+              700000,
+              714000,
+              725000,
+              11000
+            ]
+          },
+          {
+            "label": "Payments In Lieu of Taxes",
+            "isSubtotal": false,
+            "values": [
+              206500,
+              125000,
+              125000,
+              124000,
+              176575,
+              176575,
+              0
+            ]
+          },
+          {
+            "label": "Charges for Services - Trash",
+            "isSubtotal": false,
+            "values": [
+              2524774,
+              2646158,
+              2180000,
+              2180000,
+              2147200,
+              1800000,
+              -347200
+            ]
+          },
+          {
+            "label": "Other Charges for Services",
+            "isSubtotal": false,
+            "values": [
+              30000,
+              30000,
+              30000,
+              22000,
+              22660,
+              23000,
+              340
+            ]
+          },
+          {
+            "label": "Fees",
+            "isSubtotal": false,
+            "values": [
+              275000,
+              255000,
+              225000,
+              225000,
+              231750,
+              250000,
+              18250
+            ]
+          },
+          {
+            "label": "Rentals",
+            "isSubtotal": false,
+            "values": [
+              10000,
+              10000,
+              5000,
+              5000,
+              10000,
+              10000,
+              0
+            ]
+          },
+          {
+            "label": "Department Revenues - Cemetery",
+            "isSubtotal": false,
+            "values": [
+              40000,
+              40000,
+              40000,
+              40000,
+              41600,
+              44000,
+              2400
+            ]
+          },
+          {
+            "label": "Other Department Revenues",
+            "isSubtotal": false,
+            "values": [
+              150000,
+              150000,
+              150000,
+              150000,
+              156000,
+              156000,
+              0
+            ]
+          },
+          {
+            "label": "Licenses and Permits",
+            "isSubtotal": false,
+            "values": [
+              900000,
+              900000,
+              1020000,
+              1020000,
+              1161800,
+              1161800,
+              0
+            ]
+          },
+          {
+            "label": "Fines and Forfeitures",
+            "isSubtotal": false,
+            "values": [
+              100000,
+              130000,
+              135000,
+              135000,
+              140400,
+              140000,
+              -400
+            ]
+          },
+          {
+            "label": "Investment Income",
+            "isSubtotal": false,
+            "values": [
+              50000,
+              10000,
+              10000,
+              83481,
+              500000,
+              500000,
+              0
+            ]
+          },
+          {
+            "label": "Reimbursement for Related Exp - CDBG",
+            "isSubtotal": false,
+            "values": [
+              49000,
+              49000,
+              0,
+              50000,
+              50000,
+              50000,
+              0
+            ]
+          },
+          {
+            "label": "Medicaid Reimbursement",
+            "isSubtotal": false,
+            "values": [
+              550000,
+              550000,
+              650000,
+              650000,
+              682500,
+              682500,
+              0
+            ]
+          },
+          {
+            "label": "Other State Revenue - recurring",
+            "isSubtotal": false,
+            "values": [
+              25000,
+              25000,
+              15000,
+              15000,
+              15000,
+              15000,
+              0
+            ]
+          },
+          {
+            "label": "SUB TOTAL - LOCAL RECEIPTS",
+            "isSubtotal": true,
+            "values": [
+              9545068,
+              10970056,
+              11286354,
+              11411576,
+              12605666,
+              12552878,
+              -52788
+            ]
+          },
+          {
+            "label": "Fire - Ambulance Service Fees",
+            "isSubtotal": false,
+            "values": [
+              520000,
+              530000,
+              530000,
+              530000,
+              540000,
+              540000,
+              0
+            ]
+          },
+          {
+            "label": "Reimbursement from Monty Tech - SRO",
+            "isSubtotal": false,
+            "values": [
+              76000,
+              76000,
+              76000,
+              76000,
+              76000,
+              76000,
+              0
+            ]
+          },
+          {
+            "label": "Reimbursement for Fringes - Grants",
+            "isSubtotal": false,
+            "values": [
+              562000,
+              650000,
+              650000,
+              650000,
+              50000,
+              50000,
+              0
+            ]
+          },
+          {
+            "label": "SUB TOTAL NON-RECURRING REVENUE",
+            "isSubtotal": true,
+            "values": [
+              1158000,
+              1256000,
+              1256000,
+              1256000,
+              666000,
+              666000,
+              0
+            ]
+          },
+          {
+            "label": "Reimbursement for Related Exp - Water",
+            "isSubtotal": false,
+            "values": [
+              920000,
+              1110000,
+              1110000,
+              1410000,
+              1452300,
+              1597530,
+              145230
+            ]
+          },
+          {
+            "label": "Reimbursement for Related Exp - Sewer",
+            "isSubtotal": false,
+            "values": [
+              1150000,
+              1210000,
+              1210000,
+              1510000,
+              1555300,
+              1710830,
+              155530
+            ]
+          },
+          {
+            "label": "Reimbursement for Related Exp - Airport",
+            "isSubtotal": false,
+            "values": [
+              50000,
+              0,
+              50000,
+              50000,
+              75000,
+              100000,
+              25000
+            ]
+          },
+          {
+            "label": "Overlay Surplus",
+            "isSubtotal": false,
+            "values": [
+              700000,
+              700000,
+              700000,
+              700000,
+              700000,
+              700000,
+              0
+            ]
+          },
+          {
+            "label": "Available Funds/Transfers (one time)",
+            "isSubtotal": false,
+            "values": [
+              1775000,
+              675000,
+              1300000,
+              4403292,
+              4246163,
+              4026232,
+              -219931
+            ]
+          },
+          {
+            "label": "SUB TOTAL OTHER REVENUE SOURCES",
+            "isSubtotal": true,
+            "values": [
+              4595000,
+              3695000,
+              4370000,
+              8073292,
+              8028763,
+              8134592,
+              105829
+            ]
+          },
+          {
+            "label": "TOTAL OPERATING REVENUE",
+            "isSubtotal": true,
+            "values": [
+              139479493,
+              149986920,
+              159848407,
+              170440976,
+              181694177,
+              190961167,
+              9266990
             ]
           }
         ]

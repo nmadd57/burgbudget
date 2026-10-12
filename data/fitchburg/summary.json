@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-05T16:55:17.007Z",
-  "latestFiscalYear": 2026,
-  "latestAdoptedTotal": 181515682,
+  "generatedAt": "2026-10-12T17:30:27.981Z",
+  "latestFiscalYear": 2027,
+  "latestAdoptedTotal": 190961167,
   "fiscalYearsCovered": [
     2016,
     2017,
@@ -13,7 +13,8 @@
     2023,
     2024,
     2025,
-    2026
+    2026,
+    2027
   ],
   "fiscalYearsWithLowConfidence": [
     2016
